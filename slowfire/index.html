@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="《阴燃》The Slow Fire：一部写记忆的科幻小说，两卷四十四章，中英文；续篇《焦线》；导读；附刊 Second Look。">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>阴燃 · The Slow Fire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Noto+Serif+SC:wght@400;600;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a reading room. Contents rail on the left (drawer on phones), one ~36em column of text; the home page is a ledger of the whole work. */
+:root {
+  --paper: #ebeeeb;      /* ash */
+  --sheet: #f5f7f4;
+  --ink: #1c2220;
+  --muted: #59625e;
+  --rule: #c6ccc7;
+  --ember: #9c4f12;      /* the slow fire */
+  --ember-soft: rgba(156, 79, 18, .10);
+  --note-bg: #e3e6df;
+  --zh: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", serif;
+  --en: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --text: var(--zh);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121614; --sheet: #181d1b; --ink: #dfe3dd; --muted: #98a19c; --rule: #2e3532;
+    --ember: #e39a52; --ember-soft: rgba(227, 154, 82, .12); --note-bg: #1f2522; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121614; --sheet: #181d1b; --ink: #dfe3dd; --muted: #98a19c; --rule: #2e3532;
+  --ember: #e39a52; --ember-soft: rgba(227, 154, 82, .12); --note-bg: #1f2522; color-scheme: dark;
+}
+html[lang="en"] { --text: var(--en); }
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: var(--text); font-size: 17px; line-height: 1.8; margin: 0; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+a { color: var(--ember); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; border-radius: 2px; }
+button { font: inherit; color: inherit; }
+
+.shell { display: grid; grid-template-columns: 17rem minmax(0, 1fr); min-height: 100%; }
+.rail { position: sticky; top: env(safe-area-inset-top, 0px); height: 100vh; overflow-y: auto; border-right: 1px solid var(--rule);
+  padding-block: 1.6rem 3rem; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: 1rem; font-size: 14px; line-height: 1.5; }
+.rail .brand { font-family: var(--zh); font-weight: 900; font-size: 22px; letter-spacing: .12em; color: var(--ink); text-decoration: none; display: block; }
+.rail .brand small { display: block; font-family: var(--en); font-weight: 400; font-style: italic; letter-spacing: 0; font-size: 14px; color: var(--muted); }
+.rail h3 { font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 1.6rem 0 .4rem; }
+.rail ol { list-style: none; margin: 0; padding: 0; }
+.rail li a { display: grid; grid-template-columns: 2.2em 1fr; gap: .2em; padding: .18rem .3rem; color: var(--ink); text-decoration: none; border-radius: 3px; }
+.rail li a .k { font-family: var(--mono); font-size: 11px; color: var(--muted); padding-top: .2em; font-variant-numeric: tabular-nums; }
+.rail li a:hover { background: var(--ember-soft); }
+.rail li a[aria-current="page"] { background: var(--ember-soft); color: var(--ember); }
+.rail li a[aria-current="page"] .k { color: var(--ember); }
+
+.topbar { display: none; }
+main { min-width: 0; padding-block: 2rem 5rem; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.col { max-width: 36em; margin: 0 auto; }
+html[lang="en"] .col { max-width: 34em; }
+
+.controls { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: flex-end; align-items: center; margin-bottom: 1.5rem; font-family: var(--mono); font-size: 12px; }
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; }
+.seg button { border: 0; background: transparent; padding: .3rem .8rem; cursor: pointer; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.seg button:disabled { opacity: .4; cursor: default; }
+
+/* home */
+.hero { padding-block: 2.5rem 1.5rem; }
+.hero h1 { font-family: var(--zh); font-weight: 900; font-size: clamp(56px, 13vw, 112px); line-height: 1; letter-spacing: .08em; margin: 0; }
+.hero .en-title { font-family: var(--en); font-style: italic; font-size: clamp(22px, 4vw, 30px); color: var(--muted); margin: .6rem 0 0; }
+.focal { height: 1px; margin: 2rem 0 1.6rem; background: linear-gradient(90deg, transparent, var(--ember) 18%, var(--ember) 82%, transparent); position: relative; }
+.focal::after { content: ""; position: absolute; left: 50%; top: -3px; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: var(--ember); box-shadow: 0 0 0 0 var(--ember-soft); animation: smoulder 4s ease-in-out infinite; }
+@keyframes smoulder { 0%,100% { box-shadow: 0 0 0 0 var(--ember-soft); } 50% { box-shadow: 0 0 0 9px var(--ember-soft); } }
+@media (prefers-reduced-motion: reduce) { .focal::after { animation: none; } }
+.lede { font-size: 19px; margin: 0 0 1rem; text-wrap: pretty; }
+.made { font-size: 15px; color: var(--muted); margin: 0; }
+.ledger { margin-top: 2.6rem; display: grid; gap: 2.4rem; }
+.part h2 { display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap; font-family: var(--zh); font-size: 24px; font-weight: 600; margin: 0 0 .2rem; text-wrap: balance; }
+.part h2 .tag { font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ember); }
+.part h2 .alt { font-family: var(--en); font-style: italic; font-weight: 400; font-size: 18px; color: var(--muted); }
+.part p { margin: .2rem 0 .8rem; color: var(--muted); font-size: 15px; }
+.chapters { list-style: none; padding: 0; margin: 0; columns: 2 15em; column-gap: 2rem; }
+.chapters li { break-inside: avoid; border-top: 1px solid var(--rule); }
+.chapters a { display: grid; grid-template-columns: 2.4em 1fr; padding: .35rem 0; text-decoration: none; color: var(--ink); line-height: 1.5; }
+.chapters a:hover .t { color: var(--ember); }
+.chapters .k { font-family: var(--mono); font-size: 12px; color: var(--muted); padding-top: .15em; font-variant-numeric: tabular-nums; }
+.single { display: flex; flex-wrap: wrap; gap: .4rem 1.6rem; }
+.single a { text-decoration: none; border-bottom: 1px solid var(--rule); color: var(--ink); padding-bottom: .1rem; }
+.single a:hover { color: var(--ember); border-color: var(--ember); }
+.share { margin-top: 3rem; font-family: var(--mono); font-size: 12px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 1rem; }
+
+/* reader */
+.crumb { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ember); margin: 0 0 .4rem; }
+article h1 { font-family: var(--text); font-weight: 600; font-size: clamp(28px, 5vw, 38px); line-height: 1.25; margin: 0 0 1.8rem; text-wrap: balance; }
+html[lang="zh-CN"] article h1 { font-weight: 900; letter-spacing: .04em; }
+.body h2 { font-size: 22px; font-weight: 600; margin: 2.4rem 0 .8rem; line-height: 1.4; text-wrap: balance; }
+.body h3 { font-size: 18px; font-weight: 600; margin: 2rem 0 .6rem; line-height: 1.45; }
+.body p { margin: 0 0 1.05em; text-wrap: pretty; }
+html[lang="zh-CN"] .body p { text-align: justify; }
+.body hr { border: 0; text-align: center; margin: 2.4rem 0; }
+.body hr::before { content: "· · ·"; color: var(--muted); letter-spacing: .6em; }
+.body blockquote { margin: 1.4rem 0; padding: .8rem 1.1rem; background: var(--sheet); border-left: 2px solid var(--ember); font-size: 15.5px; line-height: 1.75; }
+.body blockquote p { margin: 0 0 .5em; text-align: left; }
+.body blockquote p:last-child { margin-bottom: 0; }
+.body ul, .body ol { padding-left: 1.4em; margin: 0 0 1.1em; }
+.body figure { margin: 2rem 0; }
+.body figure img { display: block; width: 100%; height: auto; border-radius: 3px; background: #fff; }
+.tablewrap { overflow-x: auto; margin: 1.4rem 0; border: 1px solid var(--rule); border-radius: 3px; }
+.body table { border-collapse: collapse; font-size: 14px; line-height: 1.55; min-width: 100%; }
+.body th, .body td { text-align: left; vertical-align: top; padding: .5rem .7rem; border-bottom: 1px solid var(--rule); }
+.body th { font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); background: var(--sheet); }
+.body code { font-family: var(--mono); font-size: .88em; }
+.body pre { overflow-x: auto; background: var(--sheet); border: 1px solid var(--rule); border-radius: 3px; padding: .8rem 1rem; font-size: 14px; line-height: 1.6; margin: 1.4rem 0; }
+.notice { font-size: 14px; color: var(--muted); background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; padding: .7rem 1rem; margin: 0 0 1.8rem; line-height: 1.6; }
+.notice strong { color: var(--ink); }
+
+/* Focal Line notes: present in the text, shown only when switched on */
+.body sup.n, .body aside.note, .body .note-preface, .body p.mrk { display: none; }
+.notes-on p.mrk { display: block; font-size: 13px; color: var(--muted); margin-top: -.6rem; }
+.notes-on sup.n { display: inline; font-family: var(--mono); font-size: 10px; color: var(--ember); vertical-align: super; line-height: 0; margin: 0 1px; }
+.notes-on aside.note { display: block; margin: -.3rem 0 1.2rem; padding: .55rem .9rem; background: var(--note-bg); border-radius: 3px; font-size: 14px; line-height: 1.7; color: var(--ink); }
+.notes-on aside.note p { margin: 0 0 .3em; text-align: left; }
+.notes-on aside.note p:last-child { margin: 0; }
+.notes-on aside.note .nl { font-family: var(--mono); font-size: 11px; color: var(--ember); margin-right: .3em; }
+.notes-on .note-preface { display: block; background: var(--note-bg); border-radius: 4px; padding: .9rem 1.1rem; margin-bottom: 2rem; font-size: 15px; }
+.notes-on .note-preface h2 { font-size: 15px; margin: 0 0 .4rem; letter-spacing: .2em; }
+
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3.5rem; border-top: 1px solid var(--rule); padding-top: 1rem; font-size: 15px; line-height: 1.45; }
+.pager a { text-decoration: none; color: var(--ink); display: block; min-width: 0; }
+.pager a span { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: .2rem; }
+.pager a:hover { color: var(--ember); }
+.pager .next { text-align: right; grid-column: 2; }
+.loading { color: var(--muted); font-family: var(--mono); font-size: 12px; }
+
+@media (max-width: 860px) {
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .rail { position: fixed; z-index: 20; inset: 0 auto 0 0; width: min(19rem, 86vw); height: auto; background: var(--paper); transform: translateX(-102%); transition: transform .2s ease;
+    padding-top: calc(1.2rem + env(safe-area-inset-top, 0px)); padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0px)); box-shadow: 0 0 40px rgba(0,0,0,.18); }
+  .rail.open { transform: none; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper);
+    border-bottom: 1px solid var(--rule); padding-block: .5rem; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .topbar a { font-family: var(--zh); font-weight: 900; letter-spacing: .1em; color: var(--ink); text-decoration: none; }
+  .topbar button { border: 1px solid var(--rule); background: transparent; border-radius: 999px; padding: .25rem .8rem; font-family: var(--mono); font-size: 12px; cursor: pointer; }
+  .scrim { position: fixed; inset: 0; background: rgba(0,0,0,.3); z-index: 15; }
+  main { padding-top: 1.2rem; }
+  body { font-size: 16.5px; }
+}
+@media (prefers-reduced-motion: reduce) { .rail { transition: none; } }
+</style>
+</head>
+<body>
+<div class="topbar"><a href="#">阴燃</a><button id="menuBtn" type="button" aria-controls="rail" aria-expanded="false">目录 · Contents</button></div>
+<div class="shell">
+  <nav class="rail" id="rail" aria-label="Contents"></nav>
+  <main id="main"><div class="col"><p class="loading">…</p></div></main>
+</div>
+<div class="scrim" id="scrim" hidden></div>
+
+<script>
+(function () {
+  var toc = null, lang = 'zh', notesOn = false;
+  try { var s = localStorage.getItem('lang'); if (s === 'zh' || s === 'en') lang = s; else if (!/^zh/i.test(navigator.language || '')) lang = 'en'; } catch (e) { if (!/^zh/i.test(navigator.language || '')) lang = 'en'; }
+  try { notesOn = localStorage.getItem('notes') === '1'; } catch (e) {}
+
+  var L = {
+    zh: { v1: '第一卷', v2: '第二卷', seq: '续篇', guide: '导读', mag: '附刊', pre: '序', contents: '目录', prev: '上一篇', next: '下一篇', home: '首页',
+      zhOnly: '这一篇只有中文。', enOnly: '这一篇只有英文。', notes: '注释', off: '关', on: '开' },
+    en: { v1: 'Volume One', v2: 'Volume Two', seq: 'Sequel', guide: "Reader's Guide", mag: 'Companion', pre: 'Preface', contents: 'Contents', prev: 'Previous', next: 'Next', home: 'Home',
+      zhOnly: 'This text is in Chinese only.', enOnly: 'This text is in English only.', notes: 'Notes', off: 'Off', on: 'On' }
+  };
+  var VOL = { v1: { zh: '阴燃', en: 'The Slow Fire' }, v2: { zh: '余烬', en: 'Embers' } };
+  var MAGNAME = ['Nov/Dec 2046 issue', 'The Sixty-Seven', 'Jan/Feb 2065 issue'];
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function short(t) { var m = t.match(/[：:]\s*(.+)$/); return m ? m[1] : t; }
+
+  // Every readable page, in reading order
+  function pages() {
+    var p = [{ id: 'preface', langs: ['zh', 'en'], title: function (l) { return toc.preface[l]; }, crumb: function (l) { return L[l].pre; }, k: '序' }];
+    ['v1', 'v2'].forEach(function (v) {
+      toc[v].forEach(function (c) {
+        p.push({ id: v + '-' + pad(c.n), vol: v, n: c.n, langs: ['zh', 'en'], title: function (l) { return c[l]; }, short: function (l) { return short(c[l]); },
+          crumb: function (l) { return L[l][v] + ' · ' + VOL[v][l]; }, k: pad(c.n), notes: true });
+      });
+    });
+    p.push({ id: 'jx', langs: ['zh'], title: function () { return '焦线'; }, crumb: function (l) { return L[l].seq + (l === 'en' ? ' · Focal Line' : ''); }, k: '续', notes: true });
+    p.push({ id: 'guide', langs: ['zh'], title: function () { return toc.guide; }, crumb: function (l) { return L[l].guide; }, k: '导' });
+    toc.mag.forEach(function (m, i) {
+      p.push({ id: 'mag-' + m.n, langs: ['en'], title: function () { return m.en; }, short: function () { return MAGNAME[i]; },
+        crumb: function (l) { return L[l].mag + ' · Second Look'; }, k: 'M' + m.n, mag: true });
+    });
+    return p;
+  }
+  var P = [];
+  function find(id) { for (var i = 0; i < P.length; i++) if (P[i].id === id) return i; return -1; }
+
+  function setLang(l) {
+    lang = l; try { localStorage.setItem('lang', l); } catch (e) {}
+    route();
+  }
+
+  function rail(cur) {
+    var h = '<a class="brand" href="#">阴燃<small>The Slow Fire</small></a>';
+    h += '<h3>' + L[lang].pre + '</h3><ol>' + item(P[0], cur) + '</ol>';
+    ['v1', 'v2'].forEach(function (v) {
+      h += '<h3>' + L[lang][v] + ' · ' + VOL[v][lang] + '</h3><ol>';
+      P.forEach(function (p) { if (p.vol === v) h += item(p, cur); });
+      h += '</ol>';
+    });
+    h += '<h3>' + L[lang].seq + ' · ' + L[lang].guide + '</h3><ol>' + item(P[find('jx')], cur) + item(P[find('guide')], cur) + '</ol>';
+    h += '<h3>' + L[lang].mag + ' · Second Look</h3><ol>';
+    P.forEach(function (p) { if (p.mag) h += item(p, cur); });
+    h += '</ol>';
+    document.getElementById('rail').innerHTML = h;
+  }
+  function label(p) {
+    var l = p.langs.indexOf(lang) >= 0 ? lang : p.langs[0];
+    return p.short ? p.short(l) : p.title(l);
+  }
+  function item(p, cur) {
+    return '<li><a href="#' + p.id + '"' + (p.id === cur ? ' aria-current="page"' : '') + '><span class="k">' + p.k + '</span><span>' + esc(label(p)) + '</span></a></li>';
+  }
+
+  function controls(p) {
+    var h = '<div class="controls"><span class="seg" role="group" aria-label="Language">';
+    ['zh', 'en'].forEach(function (l) {
+      var ok = !p || p.langs.indexOf(l) >= 0;
+      h += '<button type="button" data-lang="' + l + '" aria-pressed="' + (lang === l) + '"' + (ok ? '' : ' disabled title="' + (l === 'en' ? 'Chinese only' : '仅英文') + '"') + '>' + (l === 'zh' ? '中文' : 'English') + '</button>';
+    });
+    h += '</span>';
+    if (p && p.notes && (p.langs.indexOf(lang) >= 0 ? lang : p.langs[0]) === 'zh') {
+      h += '<span class="seg" role="group" aria-label="' + L[lang].notes + '"><button type="button" disabled style="opacity:1;cursor:default">' + L[lang].notes + '</button>'
+        + '<button type="button" data-notes="0" aria-pressed="' + !notesOn + '">' + L[lang].off + '</button><button type="button" data-notes="1" aria-pressed="' + notesOn + '">' + L[lang].on + '</button></span>';
+    }
+    return h + '</div>';
+  }
+
+  function home() {
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    var zh = lang === 'zh';
+    var h = '<div class="col">' + controls(null) + '<section class="hero"><h1>阴燃</h1><p class="en-title">The Slow Fire</p><div class="focal" aria-hidden="true"></div>';
+    h += zh ? '<p class="lede">一部写记忆的科幻小说。二〇四五年，印第安纳州的一个县，电不够用，每天夜里要把人眼镜里的个人助手压缩一遍：留什么，删什么，谁说了算。两卷四十四章，中英两种文字；另有一部写在十九年后的续篇。</p>'
+           : '<p class="lede">A science-fiction novel about memory. In 2045 an Indiana county runs short of power, and every night the personal assistants in people\'s glasses are compressed: what is kept, what is cut, and who decides. Two volumes, forty-four chapters, in Chinese and English, and a sequel set nineteen years later.</p>';
+    h += zh ? '<p class="made">本书由一位作者与AI合写。主意和取舍是人的，句子大多由机器起草；哪些出自谁手，《导读》末尾的<a href="#afterword">跋</a>里有交代。<a href="#preface">序</a>是全书唯一完全由人写成的部分。</p>'
+           : '<p class="made">Written by one author with an AI. The ideas and choices are human; most sentences were drafted by the machine. Who did what is set out in the <a href="#afterword">afterword</a> to the Reader\'s Guide (Chinese). The <a href="#preface">preface</a> is the only part written entirely by hand.</p>';
+    h += '</section><div class="ledger">';
+    h += '<section class="part"><h2><span class="tag">' + L[lang].pre + '</span>' + esc(toc.preface[lang]) + '</h2><div class="single"><a href="#preface">' + (zh ? '读序' : 'Read the preface') + '</a></div></section>';
+    ['v1', 'v2'].forEach(function (v) {
+      h += '<section class="part"><h2><span class="tag">' + L[lang][v] + '</span>' + VOL[v][lang] + '<span class="alt">' + VOL[v][zh ? 'en' : 'zh'] + '</span></h2>';
+      h += '<p>' + (v === 'v1' ? (zh ? '二〇四五年四月至五月七日 · 第一至二十二章' : 'April to 7 May 2045 · Chapters 1–22') : (zh ? '二〇四五年五月至二〇四六年十一月七日 · 第二十三至四十四章' : 'May 2045 to 7 November 2046 · Chapters 23–44')) + (zh ? '。中文版可以打开注释。' : '. Chinese text has optional notes.') + '</p><ol class="chapters">';
+      P.forEach(function (p) { if (p.vol === v) h += '<li><a href="#' + p.id + '"><span class="k">' + p.k + '</span><span class="t">' + esc(p.short(lang)) + '</span></a></li>'; });
+      h += '</ol></section>';
+    });
+    h += '<section class="part"><h2><span class="tag">' + L[lang].seq + '</span>焦线<span class="alt">Focal Line</span></h2><p>' +
+      (zh ? '二〇六四年秋，一份按时间排列的订阅源：帆到了太阳的焦线，比邻星 b 的第一张照片上，有一块白在放地球。可以打开注释，给没读过前两卷的读者。' : 'Autumn 2064, told as a news feed: the sail reaches the Sun\'s focal line, and on the first picture of Proxima b a white patch is playing back the Earth. Chinese only. Notes for readers new to the series can be switched on.') +
+      '</p><div class="single"><a href="#jx">' + (zh ? '读《焦线》' : 'Read 焦线 (Chinese)') + '</a></div></section>';
+    h += '<section class="part"><h2><span class="tag">' + L[lang].guide + '</span>' + esc(toc.guide) + '</h2><p>' +
+      (zh ? '写给读完两卷的读者：世界怎么运转，几根埋得深的线，四十四章一览，以及跋：谁想的，谁写的。' : 'For readers who have finished both volumes: how the world works, the threads buried deepest, a table of all 44 chapters, and an afterword on who thought of what. Chinese only.') +
+      '</p><div class="single"><a href="#guide">' + (zh ? '读导读' : 'Read the guide (Chinese)') + '</a></div></section>';
+    h += '<section class="part"><h2><span class="tag">' + L[lang].mag + '</span>Second Look<span class="alt">' + (zh ? '虚构的学生工程杂志' : 'an invented student magazine') + '</span></h2><p>' +
+      (zh ? '书中世界的一本学生工程杂志，两期（二〇四六年、二〇六五年），加一份读者评选的六十七篇论文。杂志和作者都是虚构的；那六十七篇论文是真的。仅英文。' : 'Two issues of an engineering students\' magazine from inside the novel (2046 and 2065), plus a readers\' list of sixty-seven papers. The magazine and its writers are fiction; the sixty-seven papers are real and cited as published.') +
+      '</p><div class="single">';
+    P.forEach(function (p) { if (p.mag) h += '<a href="#' + p.id + '">' + esc(p.short('en')) + '</a>'; });
+    h += '</div></section></div></div>';
+    document.getElementById('main').innerHTML = h;
+    rail('');
+    document.title = '阴燃 · The Slow Fire';
+  }
+
+  var cache = {};
+  function load(url) {
+    if (cache[url]) return Promise.resolve(cache[url]);
+    return fetch(url).then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); }).then(function (t) { cache[url] = t; return t; });
+  }
+
+  function page(i) {
+    var p = P[i];
+    var l = p.langs.indexOf(lang) >= 0 ? lang : p.langs[0];
+    document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en';
+    rail(p.id);
+    var notice = '';
+    if (l !== lang) notice = '<p class="notice">' + (lang === 'en' ? L.en.zhOnly : L.zh.enOnly) + '</p>';
+    if (p.mag) notice += '<p class="notice"><strong>Fiction.</strong> <em>Second Look</em> is an invented magazine from the world of the novel. Its people, places and events are made up; papers cited by their authors, journal and year are real.</p>';
+    var prev = P[i - 1], next = P[i + 1];
+    function pl(q, cls, word) {
+      if (!q) return '';
+      var ql = q.langs.indexOf(lang) >= 0 ? lang : q.langs[0];
+      return '<a class="' + cls + '" href="#' + q.id + '"><span>' + L[lang][word] + '</span>' + esc(q.title(ql)) + '</a>';
+    }
+    var h = '<div class="col">' + controls(p) + '<article' + (p.notes && notesOn && l === 'zh' ? ' class="notes-on"' : '') + '><p class="crumb">' + esc(p.crumb(lang)) + '</p><h1>' + esc(p.title(l)) + '</h1>' + notice +
+      '<div class="body"><p class="loading">…</p></div></article><nav class="pager" aria-label="' + L[lang].contents + '">' + pl(prev, 'prev', 'prev') + pl(next, 'next', 'next') + '</nav></div>';
+    var main = document.getElementById('main');
+    main.innerHTML = h;
+    document.title = p.title(l) + ' · 阴燃';
+    load('txt/' + p.id + '-' + l + '.html').then(function (t) {
+      var b = main.querySelector('.body');
+      b.innerHTML = t;
+      b.querySelectorAll('table').forEach(function (tb) { var w = document.createElement('div'); w.className = 'tablewrap'; tb.parentNode.insertBefore(w, tb); w.appendChild(tb); });
+      if (pendingAfterword && p.id === 'guide') {
+        pendingAfterword = false;
+        var hs = b.querySelectorAll('h2'); if (hs.length) hs[hs.length - 1].scrollIntoView();
+      }
+    }).catch(function () {
+      main.querySelector('.body').innerHTML = '<p class="notice">' + (lang === 'zh' ? '这一篇没能载入。请检查网络后刷新页面。' : 'This text did not load. Check your connection and reload the page.') + '</p>';
+    });
+  }
+
+  var pendingAfterword = false;
+  function route() {
+    closeRail();
+    var id = (location.hash || '').replace(/^#/, '');
+    if (id === 'afterword') { pendingAfterword = true; id = 'guide'; }
+    var i = find(id);
+    if (i < 0) home(); else page(i);
+    window.scrollTo(0, 0);
+  }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('button');
+    if (!b) return;
+    if (b.dataset.lang && !b.disabled) setLang(b.dataset.lang);
+    if (b.dataset.notes) {
+      notesOn = b.dataset.notes === '1';
+      try { localStorage.setItem('notes', notesOn ? '1' : '0'); } catch (err) {}
+      var a = document.querySelector('article'); if (a) a.classList.toggle('notes-on', notesOn);
+      document.querySelectorAll('[data-notes]').forEach(function (x) { x.setAttribute('aria-pressed', String((x.dataset.notes === '1') === notesOn)); });
+    }
+  });
+  var railEl = document.getElementById('rail'), scrim = document.getElementById('scrim'), menuBtn = document.getElementById('menuBtn');
+  function closeRail() { railEl.classList.remove('open'); scrim.hidden = true; menuBtn.setAttribute('aria-expanded', 'false'); }
+  menuBtn.addEventListener('click', function () { var o = !railEl.classList.contains('open'); railEl.classList.toggle('open', o); scrim.hidden = !o; menuBtn.setAttribute('aria-expanded', String(o)); });
+  scrim.addEventListener('click', closeRail);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeRail(); });
+  railEl.addEventListener('click', function (e) { if (e.target.closest('a')) closeRail(); });
+
+  window.addEventListener('hashchange', route);
+  load('toc.json').then(function (t) { toc = JSON.parse(t); P = pages(); route(); })
+    .catch(function () { document.getElementById('main').innerHTML = '<div class="col"><p class="notice">The contents did not load. Reload the page. · 目录没能载入，请刷新页面。</p></div>'; });
+})();
+</script>
+
+</body>
+</html>

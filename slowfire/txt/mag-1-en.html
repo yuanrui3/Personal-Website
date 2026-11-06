@@ -1,0 +1,93 @@
+<p><em>Vol. 65, No. 6 · A magazine by and for engineering students · Theme: What we keep</em></p>
+<p><em>A work of fiction set in the world of 《阴燃》 and 《余烬》. The magazine is invented too.</em></p>
+<h2>From the guest editors</h2>
+<p>Once a year this magazine hands an issue to the students and young engineers of a single region. This year it is Central Indiana, and most of what follows was written within twenty kilometres of Kestrel Ridge.</p>
+<p>We closed the issue on 8 November. Two days earlier Indiana passed Question 1, 50.4 per cent for. From 1 January anyone in the state who rents out their body through a port is an employee, with a minimum wage and the right to refuse a task in advance. One of our features is about what a port does at night. It was written before the vote and we have left it as it was.</p>
+<p>The two features are about small things: a ring of glass that multiplies, and a window of 132 milliseconds. The long piece is a list. For two years we asked readers one question, and the answer is on the next page.</p>
+<p><em>In this issue:</em> Arithmetic in a ring · The port that waits for the crest · If I could keep only 67 articles</p>
+<hr />
+<h2>Arithmetic in a ring</h2>
+<p><em>How a loop of glass forty micrometres across multiplies two numbers, and why its walls have to be smooth</em></p>
+<p><strong>Marisol Quintero</strong>, Purdue ECE, West Lafayette. The author spent eight months of 2046 as a co-op technician on the night shift of a photonics foundry in the Purdue Birck nanotechnology center. Nothing below comes from inside the fence. The numbers are from the open literature or are worked out on the page.</p>
+<p>A large model spends nearly all its time multiplying. The biggest machines at Kestrel Ridge do that multiplying in light at 1,310 nanometres, and the part that does it is a ring of silicon nitride a few tens of micrometres across. This article explains how a ring multiplies, what its quality factor Q means in units you can picture, and why one number, the roughness of an etched wall, decides whether the hall north of town earns its night.</p>
+<h3>A ring is a bell</h3>
+<p>Put a straight waveguide next to a ring. Light of most colours passes by. Light whose wavelength fits a whole number of times around the ring leaks in, goes round, and takes a while to leak out or be lost. Sweep a laser across that colour and the transmitted light shows a notch.</p>
+<p>Q is the centre frequency divided by the width of the notch. At 1,310 nm the frequency is 229 THz. Take two rings of 20 µm radius, with a group index of 2.1, which is typical for this glass.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Intrinsic Q = 300,000</th>
+<th>Intrinsic Q = 1,400,000</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Width of the resonance</td>
+<td>763 MHz (4.4 pm)</td>
+<td>163 MHz (0.94 pm)</td>
+</tr>
+<tr>
+<td>Time a photon stays</td>
+<td>0.21 ns</td>
+<td>0.97 ns</td>
+</tr>
+<tr>
+<td>Trips round the ring</td>
+<td>about 240</td>
+<td>about 1,100</td>
+</tr>
+<tr>
+<td>Distance travelled inside</td>
+<td>3 cm</td>
+<td>14 cm</td>
+</tr>
+<tr>
+<td>Loss in the glass</td>
+<td>1.5 dB/cm</td>
+<td>0.31 dB/cm</td>
+</tr>
+</tbody>
+</table>
+<p>The second ring holds light for a nanosecond. In that time the light travels fourteen centimetres inside a loop you could not see without a microscope. Strike a good bell once and it hums for a long time; that is all Q says.</p>
+<h3>From a notch to a multiplication</h3>
+<p>Give the ring a second waveguide on its far side. Now light on resonance crosses the ring and leaves by the second guide (the drop port), and light off resonance carries straight on (the through port). Put a detector on each and subtract. On resonance the difference is close to +1. Far off resonance it is −1. In between it is any value you like, and you choose it by warming the ring, a degree or two at most, which shifts the resonance.</p>
+<p>That difference is a weight. The brightness of the incoming light is the other number. What the detectors report is their product. Put many rings of slightly different sizes along one waveguide, each tuned to its own colour, and one pair of detectors adds up many products at once. That sum is one row of a matrix multiplication, done at the speed light crosses a chip. The idea was proposed by Tait and colleagues in 2014 and first built in their 2017 paper, which is number 27 on this issue's list.</p>
+<h3>Why a million</h3>
+<p>The ring has to be coupled to its waveguides strongly enough to follow the signal. Suppose the design needs a bandwidth of 2.3 GHz, a loaded Q of 100,000. Every photon then has two ways to leave: into the drop port, where it is counted, or into the wall, where it is lost. Panel (c) of the figure shows what that costs. With an intrinsic Q of 300,000 the largest weight the ring can reach is +0.33. With 1.4 million it is +0.86. A third of the range has become most of it, and the light that used to be lost no longer has to be replaced by a brighter laser.</p>
+<figure><img src="img/mag_1_0.webp" alt="Three panels: a ring between two waveguides; the notch two rings of different Q cut in the transmitted light; the weight each ring can set as it is tuned" loading="lazy"></figure>
+<p><em>Figure 1. (a) The device: a ring between two waveguides. The weight is the light dropped minus the light passed through. (b) The notch a ring cuts in one waveguide when its coupling is matched to its loss, for intrinsic Q of 300,000 and 1.4 million. Matching doubles each ring's own linewidth. (c) The weight read by a pair of detectors as the ring is tuned, for the same two rings at a loaded Q of 100,000. Computed from the standard formulas for a ring with one and two waveguides.</em></p>
+<p>Q does not by itself set how many rings fit on one waveguide. The resonances of a 20 µm ring repeat every 6.5 nm, which is about 500 linewidths at 2.3 GHz. The channels must sit several linewidths apart, so on the order of a hundred fit, whichever ring you use. What the better ring buys is a choice. Load it more lightly, to a Q of 300,000, and the line is three times narrower: three times the channels at a third of the bandwidth, with a top weight still at +0.57. The poorer ring cannot make that trade. At a loaded Q of 300,000 it has no coupling left: no light gets in from the waveguide, and none would reach the drop port.</p>
+<h3>Why the walls</h3>
+<p>Light is lost in three places: absorbed in the film, leaked round the bend, and scattered by the side walls. An anneal drives out the hydrogen that absorbs, and a wide waveguide keeps the light off the walls. Both are fixed by the furnace and the mask, and do not change from one lot to the next. What is left, and what does change, is scattering from the etched walls, which goes as the square of their roughness. Going from Q of 300,000 to 1.4 million is a 4.7-fold drop in loss. If the etch has to supply all of it, the walls are 2.2 times smoother. On a wall a few hundred nanometres high that is a change of a nanometre or two in something nobody can see directly.</p>
+<h3>A chamber has a history</h3>
+<p>The walls are cut by a plasma. Coburn and Winters explained in 1979 why ions and reactive gas together cut far faster than either alone, and cut straight down. What their paper could not include is the chamber. Its inner surfaces take on a thin fluorocarbon coat, the way a pan takes on oil. Change a quartz part and the new surface is bare. It takes fluorine out of the plasma until it has had its fill, and until then the walls it etches are rough. You can watch this on the spectrometer: the fluorine emission line near 704 nm runs low and ragged, then flattens.</p>
+<p>So a tool is fed blank wafers after maintenance. They are called seasoning wafers. How many is a number in a specification, and in my eight months the most useful thing I learned is that the number was written for the part that used to be in the tool.</p>
+<h3>What tunes what</h3>
+<p>A foundry's line agent runs a model of each tool and rewrites that model's rules every night from the day's logs. Readers will know this is the practice that began around 2026, when models were first set to tuning the weights of the models beneath them. It works. The agent can try a thousand recipes in simulation in a minute. The tool etches one wafer in eleven minutes and remembers every wafer it has ever etched. The first half of the job got fast. The second half is as slow as it was in 2029.</p>
+<p>One thing I can report because it is not a process parameter. A declaration filed last December in <em>Calloway v. Scion</em> says that the photonic die inside a Plinth port came off this foundry's line. The ring that multiplies in a rack at Kestrel is the same kind of ring that listens behind somebody's ear.</p>
+<hr />
+<h2>The port that waits for the crest</h2>
+<p><em>What it means for a device to stimulate "at the right phase" of sleep, and how you would check</em></p>
+<p><strong>Noor Haddad</strong>, Weldon School of Biomedical Engineering, Purdue University.</p>
+<p>Two companies in this county put the same port to different use at night. Plinth rents the sleeping body out. Scion, founded by former Plinth engineers, sells a programme called Night School that claims to firm up what the wearer practised that day. This article is about the second claim. It sets out the science it rests on, the one public measurement of what the device does, and what that measurement can and cannot tell you.</p>
+<h3>The science, as it stood in 2026</h3>
+<p>In the first hours of sleep the cortex swings slowly between active and silent states, a little less than once a second. This is the slow oscillation. In 1994 Wilson and McNaughton showed in rats that groups of cells that fired together during the day fire together again in sleep. In 2013 Ngo and colleagues played quiet clicks to sleeping people, timed to the active phase of the slow oscillation. In-phase clicks strengthened the oscillation and the sleep spindles riding on it, and in that study the sleepers remembered more word pairs the next morning. The same clicks out of phase did nothing. Both papers are on this issue's list. The effect on the oscillation has held up. The effect on memory has not been reliable: in 2019 Henin and colleagues repeated the protocol as closely as they could and got the stronger oscillations without the better recall.</p>
+<p>The finding that has survived, and the one that matters to an engineer, is about timing. The same stimulus does different things at different phases of the wave. A stimulus that arrives a third of a second late is a different stimulus.</p>
+<h3>The one public measurement</h3>
+<p>In December 2045 an expert declaration was filed in <em>Calloway v. Scion</em>. A process engineer drove two port modules, one with licensed firmware and one modified, with a standard 0.8 Hz test wave and watched the current monitor. The declaration states that the modified unit "delivers current only within a phase window extending from the end of the rising segment of the input slow wave to approximately thirty-eight degrees past its peak," that the relation holds when the input frequency and phase are varied, and that it was measured three times.</p>
+<p>Thirty-eight degrees of a 0.8 Hz wave is 132 ms. At 0.6 Hz it is 176 ms and at 1 Hz it is 106 ms. The window is fixed in phase, so it stretches and shrinks with the wave. That is the signature of a device that is tracking the wave and not counting seconds.</p>
+<h3>Reading the figure</h3>
+<p>The measurement was made on an oscilloscope in X–Y mode, an old method and a good one. Put the wave on the horizontal axis and the device's output on the vertical axis, and leave time out. If the output is locked to the wave, every cycle draws the same curve and the figure stands still (panel b). If the device runs on its own clock, each cycle lands a little further round and the figure smears into a band (panel c). A free-running clock can sit by chance at a whole-number ratio to the wave and draw a still figure too, which is why the test is repeated at other frequencies. Change the input frequency and a locked figure keeps its shape, while an accidental one falls apart. No model is needed to read it.</p>
+<figure><img src="img/mag_1_1.webp" alt="Three panels: a slow wave and the port current with a shaded window after each crest; a closed X-Y figure; an X-Y figure that never closes" loading="lazy"></figure>
+<p><em>Figure 2. (a) A 0.8 Hz test wave and the port's output current. The window from each crest to 38° past it is shaded and lasts 132 ms. (b) Output locked to the wave, drawn for ten cycles: every cycle retraces the same curve. (c) An output on its own clock at 3.07 times the wave's frequency, drawn for the same ten cycles. Computed; these are not the traces in the court exhibit.</em></p>
+<h3>What it takes to hit a crest</h3>
+<p>The port cannot wait to see the crest and then act; by then it has passed. It has to predict. The usual design is a phase-locked loop: filter the signal to the slow band, estimate the phase, and fire when the estimate reaches the target, allowing for the device's own delay. Real slow oscillations are not sine waves. Their period wanders from one cycle to the next, often by a tenth of a second or more, so the loop is always guessing. A window of 132 ms is about a tenth of a cycle. Whether the port finds the crest of a real brain as well as it finds the crest of a signal generator is not in the public record.</p>
+<h3>What the measurement does not show</h3>
+<ul>
+<li><strong>That it works.</strong> The declaration says when current flows. It says nothing about memory. Scion's statement that one night's pass is worth five has no published trial behind it.</li>
+<li><strong>What is firmed up.</strong> Consolidation strengthens what was practised. The motor-learning literature has said for decades that a skill is tied to the conditions it was practised under, and carries over only in part to another speed. Nothing in this line of work shows a stimulus adding a skill that the day did not contain.</li>
+<li><strong>What it costs.</strong> As built and as contracted, a port does one thing a night: the module runs one schedule, and Plinth rents whole nights. A wearer who enrols gives up the night's rent.</li>
+</ul>
+<h3>Where it stands</h3>
+<p>In February a court barred further distribution of firmware derived from Plinth's and declined to recall units already in use. Scion has sold a module of its own design since March, at $1,800. An appeal was dismissed in October. If Question 1 passes on 6 November, a renter's contract will carry a box headed <em>refuse in advance</em> from January. The law would then say who may decline the night. It would still not say who owns the 132 milliseconds.</p>
