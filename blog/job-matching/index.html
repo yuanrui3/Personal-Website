@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Yuanrui Chen">
+  <meta name="description" content="A guided tour of the mathematics of job matching in the age of AI">
+  <title>Why hiring broke when applying became free | Yuanrui Chen</title>
+  <link rel="stylesheet" href="../../stylesheet.css">
+  <link rel="stylesheet" href="../blog.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="crumbs"><a href="../../">Yuanrui Chen</a> &nbsp;/&nbsp; <a href="../">Blog</a></div>
+    <h1 class="title">Why hiring broke when applying became free</h1>
+    <p class="subtitle">A guided tour of the mathematics of job matching in the age of AI</p>
+    <p class="date">November 16, 2026</p>
+<h2 id="two-thousand-applications-for-two-jobs">Two thousand applications for two jobs</h2>
+<p>Applying for a job has become almost free, and the mathematics says that is the root of the problem, not the volume itself. In April 2025 a small software company advertised a junior programmer role and received more than 2,200 applications. It read every one by hand and hired two people.</p>
+<p>That round is unusually well documented, but its shape is now common. Applicants use AI to produce a polished, tailored letter in seconds and send hundreds of them. Employers, buried, use AI to filter. Each side is responding sensibly to the other, and the result is a market where a perfect-looking application says very little.</p>
+<p>To judge whether hiring still works, we need a yardstick. A simple one: <strong>how much better is the person hired than someone picked at random from the applicants?</strong> A process no better than a lottery has failed, however much effort went into it.</p>
+<p>This article walks through what mathematics says about that question, from order statistics to game theory. It draws on two companion documents: a research report on the state of the theory, and a technical note with a simulation and a solved model. Both were checked by several independent reviewers, and where they found errors the numbers here are the corrected ones. Both are linked at the end, with the code.</p>
+<p>Three findings carry most of the story:</p>
+<ol type="1">
+<li><strong>Measurement beats volume.</strong> The quality of a hire depends far more on how well candidates are assessed than on how many apply.</li>
+<li><strong>Cheap applications burn value without improving matches.</strong> In a solved model, more than half of the surplus left after screening and entry costs goes on applications that change nothing.</li>
+<li><strong>Better designs exist in pieces.</strong> Matching theory offers proven components, but no one has proven that they work when assembled, and some of them conflict.</li>
+</ol>
+<h2 id="the-best-of-many-why-validity-beats-volume">The best of many: why validity beats volume</h2>
+<p>The quality of the best-scoring applicant grows only with the square root of the logarithm of the pool, while it grows in direct proportion to how good the test is. That one fact explains most of what follows.</p>
+<p>Model each applicant’s true quality <span class="math inline">\(q\)</span> as a standard normal variable: mean 0, standard deviation 1. The employer never sees <span class="math inline">\(q\)</span>. It sees a score <span class="math inline">\(s\)</span>, which is quality plus independent noise, scaled so that the correlation between <span class="math inline">\(s\)</span> and <span class="math inline">\(q\)</span> is <span class="math inline">\(r\)</span>. Personnel psychologists call <span class="math inline">\(r\)</span> the <strong>validity</strong> of the assessment.</p>
+<p><span class="math display">\[
+s = r\,q + \sqrt{1-r^{2}}\;\varepsilon, \qquad \varepsilon \sim N(0,1)
+\]</span></p>
+<p>The employer hires whoever scores highest out of <span class="math inline">\(N\)</span>. For jointly normal variables the best guess of <span class="math inline">\(q\)</span> given <span class="math inline">\(s\)</span> is <span class="math inline">\(r s\)</span>, so the hire’s expected quality is <span class="math inline">\(r\)</span> times the expected top score:</p>
+<p><span class="math display">\[
+\mathbb{E}[q_{\text{hire}}] = r\, m_N, \qquad m_N = \mathbb{E}\big[\max(Z_1,\dots,Z_N)\big] \approx \sqrt{2\ln N}
+\]</span></p>
+<p>A random applicant has expected quality 0, so <span class="math inline">\(r\,m_N\)</span> is exactly our yardstick, measured in standard deviations. The expected maximum <span class="math inline">\(m_N\)</span> grows painfully slowly: 1.54 for 10 applicants, 2.51 for 100, 3.24 for 1,000 and 3.85 for 10,000. Each tenfold increase in the pool adds less than the one before.</p>
+<p>Validity, by contrast, multiplies everything. A large meta-analysis of hiring methods (<a href="https://www.siop.org/tip-article/is-cognitive-ability-the-best-predictor-of-job-performance">Sackett et al. 2022</a>) puts structured interviews at .42, work samples at .33 and unstructured interviews at .19; years of experience manage .07. So a structured interview applied to 10 applicants (0.65 standard deviations above random) does as well as an unstructured one applied to 1,000 (0.62). Going from 100 to 1,000 applicants is cancelled entirely if validity falls by 23%.</p>
+<figure>
+<img src="fig-validity.svg" alt="Computed for this article: validity × expected maximum of N standard normals; validities from Sackett et al. (2022)." />
+<figcaption aria-hidden="true">Computed for this article: validity × expected maximum of <span class="math inline">\(N\)</span> standard normals; validities from Sackett et al. (2022).</figcaption>
+</figure>
+<p>An analogy from imaging: you are looking for the brightest star in a noisy exposure. Widening the field gives the real star more competition from noise spikes, and the brightest pixel is increasingly a fluke. Improving the signal-to-noise ratio is what actually finds the star.</p>
+<p>Two refinements matter. First, <strong>gaming</strong>: if applicants can add an independent term <span class="math inline">\(g\)</span> to their score, validity falls to <span class="math inline">\(r/\sqrt{1+\sigma^2}\)</span>, where <span class="math inline">\(\sigma^2\)</span> is the variance of <span class="math inline">\(g\)</span>. What a larger pool then does depends on the tail of <span class="math inline">\(g\)</span>. With Gaussian gaming the hire still improves with <span class="math inline">\(N\)</span>, more slowly; with exponential tails the gain stops growing at a fixed level; with power-law tails it falls back towards zero, because the top scorer is increasingly just the best gamer.</p>
+<p>Second, <strong>heavy-tailed talent</strong>. If a few people are worth many times the median, and that shows through the assessment, a larger pool is worth much more. In the technical note’s simulation, growing a pool from 300 to 2,200 lifts the hire by 0.15 standard deviations when quality is normal, but by 0.74 with a fat-tailed (Student-<span class="math inline">\(t\)</span>) distribution and 3.2 with a skewed (lognormal) one. When the screen sees only ranks, the same gains are 0.20 and 0.32. “Pool size buys little” is a statement about thin-tailed quality.</p>
+<h2 id="why-a-cover-letter-stopped-meaning-anything">Why a cover letter stopped meaning anything</h2>
+<p>A written application used to work as a costly signal, and AI removed the cost. The economics of this goes back to Michael Spence’s 1973 model of job-market signalling, which won a Nobel prize.</p>
+<p>Spence’s insight is that a signal can be informative even if it has no direct value, provided it is <strong>cheaper for the able to send</strong>. A tailored, well-argued letter took hours, and it took fewer hours for someone who understood the job and could write. So a good letter separated candidates. If writing becomes cheap for everyone, and equally cheap, that separation disappears: everyone can afford the polished letter, so the polished letter tells you nothing.</p>
+<p>What remains is what game theorists call <strong>cheap talk</strong>: costless statements from someone whose interests differ from yours. Every applicant wants the job regardless of how good they are, so costless text cannot rank them. It can still tell you which role someone fits, but not who is best.</p>
+<p>The evidence arrived quickly. Two studies of Freelancer.com, a large online labour market, measured what happened when AI writing tools spread:</p>
+<ul>
+<li><strong>The signal weakened.</strong> After the platform launched an AI proposal writer, the correlation between how tailored an application was and whether it got a callback fell by 51%; for offers it fell by 79%. Employers shifted their attention to review history instead (<a href="https://arxiv.org/abs/2509.25054">Cui, Dias &amp; Ye 2025</a>).</li>
+<li><strong>Selection got less meritocratic.</strong> Before AI, a worker’s written proposals correlated about 0.55 with estimated ability. In a model of the market where written applications carry no information, the top fifth of workers by ability are hired 19% less often and the bottom fifth 14% more, and average wages fall about 5% (<a href="https://arxiv.org/abs/2511.08785">Galdin &amp; Silbert 2025</a>).</li>
+</ul>
+<p>This is not an argument against writing help as such. In an earlier experiment, grammar assistance raised hiring by 8% with no fall in employer satisfaction, because there, poor writing had been noise rather than signal. AI destroys the effort and interest a letter used to reveal; it can improve clarity.</p>
+<p>The employer-side response creates a second problem: <strong>monoculture</strong>. When many firms use the same screening model, its errors are correlated, so the same people are rejected everywhere. In data on about four million applications screened by one vendor’s algorithms, 4% of people who applied to ten positions were recommended for rejection at all ten, more than chance would predict (<a href="https://arxiv.org/abs/2605.27371">Bommasani et al. 2026</a>). In theory, a shared evaluator makes extra applications pointless and freezes selection quality however many firms there are (<a href="https://arxiv.org/abs/2312.09841">Peng &amp; Garg 2024</a>); independent evaluators keep the “wisdom of crowds” but reward applying widely.</p>
+<h2 id="hundreds-of-applications-rational-for-one-wasteful-for-all">Hundreds of applications: rational for one, wasteful for all</h2>
+<p>Sending hundreds of applications is the correct individual response to low odds and near-zero cost; the waste only appears when everyone does it. This is a textbook case of a collective-action problem, and the mathematics makes it precise.</p>
+<p>Suppose each application yields an offer with probability <span class="math inline">\(p\)</span> and costs <span class="math inline">\(c\)</span>, measured as a fraction of what the job is worth to you. With <span class="math inline">\(m\)</span> applications sent at random, the number of offers is approximately Poisson with mean <span class="math inline">\(mp\)</span>, so your expected payoff is <span class="math inline">\(1 - e^{-mp} - cm\)</span>. Setting the derivative to zero gives the best number of applications:</p>
+<p><span class="math display">\[
+m^{*} = \frac{1}{p}\,\ln\frac{p}{c}
+\]</span></p>
+<p>With a 1% offer rate and a cost of one ten-thousandth of the job’s value, <span class="math inline">\(m^*\)</span> is about 460. Nothing irrational is needed to explain mass application: percent-level odds and nearly free applications are enough.</p>
+<p>Now look at the market as a whole. A classic model (<a href="https://faculty.georgetown.edu/albrecht/agvfinalversion.pdf">Albrecht, Gautier &amp; Vroman 2006</a>) has equal numbers of workers and vacancies; each worker sends <span class="math inline">\(a\)</span> applications, and each vacancy can make only one offer. The share of workers who end up with a job is</p>
+<p><span class="math display">\[
+M(a) = 1 - \left[1 - \frac{1}{a}\left(1 - e^{-a}\right)\right]^{a}
+\]</span></p>
+<p>It is 0.632 with one application each, peaks at 0.681 with three, and falls back to 0.632 as applications go to infinity. More applications let workers diversify, but they also make vacancies send offers to people who take a job elsewhere. Notice the size, though: over-application costs about five percentage points of matches. The number of jobs filled is not where most of the damage is.</p>
+<p>In one leading model, the damage is in <strong>screening</strong>. When reading an application costs the employer something and it cannot tell who is still available, cheap applications push the market into a regime where screening eats the employers’ entire surplus. In that regime, a cap on the number of applications per person makes both workers and employers better off (<a href="https://business.columbia.edu/sites/default/files-efs/citation_file_upload/ssrn-2427960.pdf">Arnosti, Johari &amp; Kanoria 2021</a>).</p>
+<p>A calibrated model of the US labour market points the same way. It attributes to cheaper job search between the late 1990s and the late 2010s a near doubling of applications per vacancy (from 20 to 38), a one-fifth fall in matching efficiency and a rise of about 70% in unemployment duration, with the losses concentrated on lower-productivity workers (<a href="https://lfmann.github.io/files/papers/2026/bm_draft_10_15_26.pdf">Bagga &amp; Mann, 2026 draft</a>).</p>
+<h2 id="a-model-you-can-solve-applications-as-lottery-tickets">A model you can solve: applications as lottery tickets</h2>
+<p>In a small equilibrium model built for the technical note, making applications cheaper changes almost nothing except how many are sent, and the extra applications are pure waste. The model is deliberately simple so that every number can be checked.</p>
+<p><strong>The setup.</strong> There are two kinds of workers: 30% are highly productive (output 1 in a job), the rest less so (output 0.3). Every job pays the same wage, 0.5. Workers choose how many applications to send, at random, to vacancies. Each vacancy screens its pile in random order with a noisy pass/fail test that is right 80% of the time, offers the job to the first applicant who passes, and stops. Firms keep entering the market until expected profit is zero. Everything is solved exactly in the large-market limit and checked against a direct simulation of 200,000 workers.</p>
+<p><strong>Why cheaper applications change nothing.</strong> At each worker’s optimum, total spending on applications obeys a simple identity, where <span class="math inline">\(x\)</span> is the worker’s expected number of offers and <span class="math inline">\(w\)</span> the wage:</p>
+<p><span class="math display">\[
+c\,a = w\, x\, e^{-x}
+\]</span></p>
+<p>The right-hand side does not contain the cost <span class="math inline">\(c\)</span>. Once vacancies are saturated with applications, halving <span class="math inline">\(c\)</span> roughly doubles the number of applications and leaves offers, hires and surplus where they were. In the model, as the cost per application falls from 0.005 to 0.0002, applications per vacancy rise from 32 to 809 while hires and total surplus do not move at three decimal places.</p>
+<p><strong>Where the value goes.</strong> At the baseline, workers send about 150 applications each, yet a vacancy screens only 2.7 of its roughly 160 on average; the rest are never read. Applications work like lottery tickets. Spending on them is 0.150 per worker against a net surplus of 0.118, so about 56% of the surplus remaining after screening and entry costs is burned on tickets.</p>
+<p><strong>The AI shocks, one at a time.</strong> Starting from a pre-AI baseline, making applications 20 times cheaper does almost nothing to surplus. Making screening cheaper helps. Making the test noisier is the damaging change: lowering its accuracy from 80% to 65% cuts total surplus by 37%. All three together leave surplus 19% below where it started.</p>
+<p><strong>Caps and fees.</strong> Two policies were compared across 16 parameter settings. A <strong>cap</strong> limits applications per person. A <strong>fee</strong> charges for each application and returns the money to all workers as an equal lump sum, so it only changes incentives, not total income.</p>
+<figure>
+<img src="fig-caps.svg" alt="Technical note, equilibrium model at baseline settings: 12 caps on the average, 13 on the exact count." />
+<figcaption aria-hidden="true">Technical note, equilibrium model at baseline settings: 12 caps on the average, 13 on the exact count.</figcaption>
+</figure>
+<ul>
+<li><strong>Caps usually help, sometimes a lot.</strong> A hard cap of 7 applications raises surplus at the baseline from 0.118 to 0.275, more than doubling it. Across settings, caps raised surplus in 13 or 14 of 16 cases, depending on whether they limit the exact count or the average.</li>
+<li><strong>Caps fail where self-selection matters.</strong> A cap pushes everyone towards the same number of applications. Where firms can only break even because the productive workers apply more than others, a cap destroys that sorting; in three settings no cap helped at all.</li>
+<li><strong>The rebated fee was the robust instrument.</strong> It raised surplus in all 16 settings, with both kinds of worker better off, and beat the best cap in 12. It works because each type still chooses its own rate, and the rebate returns the money. Where neither type applies more than the other, the cap was slightly better, by at most 0.006.</li>
+</ul>
+<p>The model is stylized: one round, one offer per vacancy, a single wage, illustrative parameters. Its numbers show mechanisms, not magnitudes for any real labour market.</p>
+<h2 id="what-a-better-market-could-look-like">What a better market could look like</h2>
+<p>Matching theory, the mathematics behind the 2012 Nobel prize to Alvin Roth and Lloyd Shapley, offers proven building blocks, but also proven limits on what any design can promise.</p>
+<p><strong>Stable matching.</strong> American medical residents have been placed by a central clearinghouse for decades. Its core is <strong>deferred acceptance</strong> (Gale and Shapley, 1962). Each applicant proposes to their favourite remaining program; each program tentatively holds the best proposals it has received and rejects the rest; rejected applicants propose to their next choice; repeat until no one is rejected. The result is <em>stable</em>: no applicant and program would both rather be with each other than with their assigned partners. It is also safe for applicants to rank their true preferences. But no stable mechanism can make truth-telling safe for both sides at once (<a href="https://stanford.edu/~alroth/papers/1982_MOR_EconomicsOfMatching.pdf">Roth 1982</a>).</p>
+<p><strong>Wages, and a link to optimal transport.</strong> When pay is negotiable, the stable outcomes are exactly the solutions of a linear program that maximizes total match value, and the stable wages are its dual prices (Shapley and Shubik, 1971). Add random individual tastes and the equilibrium becomes an entropy-regularized optimal transport problem, solvable by Sinkhorn iterations; the computation is not the bottleneck.</p>
+<p><strong>Scarce signals.</strong> Many residency specialties now give each applicant a small budget of “signals” to mark their top programs. A signal is credible precisely because it is scarce. In otolaryngology, programs offered interviews to 58% of applicants who signalled them and 14% of those who did not. Five signals barely changed how many applications people sent; twenty-five cut them by 37%. At that point a signal budget works like a cap.</p>
+<p><strong>Few interviews can be enough.</strong> In the worst case, reaching a stable matching requires communication that grows like <span class="math inline">\(n^2\)</span>, so essentially everyone must assess everyone. With realistic structure, a shared quality score plus individual fit, it does not: interview protocols reach a suitably defined stability with about two interviews per applicant (<a href="https://arxiv.org/abs/2602.20358">Babaioff, Gil &amp; Romm 2026</a>) or a number growing only like <span class="math inline">\((\log n)^2\)</span>.</p>
+<p><strong>No free lunch.</strong> If both a worker’s cost and an employer’s value are private, no mechanism can be efficient, truthful and voluntary without an outside subsidy (Myerson and Satterthwaite, 1983). With both values uniform on <span class="math inline">\([0, 1]\)</span>, efficient trade is worth 1/6 on average, but the information rents needed to make people reveal their values add up to at least 1/3.</p>
+<p><strong>The pieces do not simply stack.</strong> Capping the length of rank lists, for example, destroys the truthfulness and stability that deferred acceptance guarantees: with two workers who both prefer job A, a one-job limit can leave a worker and a job unmatched even though each would prefer the other. Field results are sobering too. A randomized trial of deferred acceptance for 9,577 US Army officers made the process fairer (a third less justified envy) but did not improve performance ratings or promotion (<a href="https://www.nber.org/papers/w31612">Davis, Greenberg &amp; Jones 2023</a>).</p>
+<p>The design the theory points to is layered: verified evidence instead of prose, scarce signals, caps or rebated fees to ration attention, published bars so applicants can aim, a few structured interviews, and clearing with wages built in. Each layer has supporting results under its own assumptions. No one has proven the whole pipeline works.</p>
+<h2 id="a-real-hiring-round-run-through-the-math">A real hiring round, run through the math</h2>
+<p>In the one well-documented case examined, a late work sample did most of the selecting, and the huge applicant pool added little. The case is 37signals, a small software company, hiring a junior programmer in spring 2025.</p>
+<p>The company published unusually much about the process. The <a href="https://jobs.rubyonrails.org/jobs/2120-junior-rails-programmer-37signals">posting</a> gave a fixed salary of $145,849 in every location, a fixed deadline, and a promise that people, not software, would read every application, with AI-sounding ones discarded. The stages were: human review of every application, a phone screen, a short call with a programmer, a 6–8 hour take-home exercise modelled on real work, and a final interview about the candidate’s solution. The opening drew more than 2,200 applications (<a href="https://world.hey.com/dhh/we-ll-always-need-junior-programmers-69ddb4a1">founder’s post</a>). Across this and a parallel senior search, about 75 people took the exercise and four were hired, two of them juniors (<a href="https://www.buzzsprout.com/2260539/17663283/transcript">company podcast</a>).</p>
+<p>Treat it as two rounds of the selection model above. Round one scores everyone on prose, with an assumed validity of .19. Round two gives a shortlist the work sample and interview, with an assumed combined validity of .47, and the best two are hired. The junior shortlist size was not published, so three sizes are shown.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Design</th>
+<th>Hire quality (SD above a random applicant)</th>
+<th>Same, if the prose screen tells nothing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Prose screen only, top 2 of 2,200</td>
+<td>0.63</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Prose screen, then 10 work samples</td>
+<td>1.13</td>
+<td>0.60</td>
+</tr>
+<tr class="odd">
+<td>Prose screen, then 35 work samples</td>
+<td>1.34</td>
+<td>0.89</td>
+</tr>
+<tr class="even">
+<td>Prose screen, then 75 work samples</td>
+<td>1.43</td>
+<td>1.04</td>
+</tr>
+<tr class="odd">
+<td>Work sample for all 2,200</td>
+<td>1.56</td>
+<td>1.56</td>
+</tr>
+<tr class="even">
+<td>Pool of only 300, then 35 work samples</td>
+<td>1.19</td>
+<td>0.89</td>
+</tr>
+</tbody>
+</table>
+<p>Three things stand out:</p>
+<ul>
+<li><strong>The work sample does the selecting.</strong> With 35 work samples the process reaches about 86% of what testing all 2,200 people would.</li>
+<li><strong>The flood bought little.</strong> Shrinking the pool from 2,200 to 300 costs only about 0.15 standard deviations of hire quality.</li>
+<li><strong>A wide shortlist is insurance against AI-written prose.</strong> If letters carried no information at all, 75 work samples would still deliver 1.04; the 10 the posting originally planned would deliver 0.60.</li>
+</ul>
+<p>The validities here are textbook averages, not measurements of this firm, and the model assumes normal quality. Under the heavy-tailed alternatives of the earlier section, the pool would matter more.</p>
+<h2 id="if-you-are-applying-right-now">If you are applying right now</h2>
+<p>The same mathematics, read from the applicant’s chair, favours raising the odds of each application over sending more of them, and spreading applications across employers that judge differently. These are conditional rules of thumb, not guarantees; the figures come from the selection model above unless a source is given.</p>
+<p><strong>Expect noise, and don’t read much into a rejection.</strong> If an employer calls back the top 5% of its pool on a prose-quality screen (validity .19), a candidate at the 90th percentile of true quality is called back only 7.7% of the time. Being turned away is the normal outcome even for strong candidates, so broad application is rational.</p>
+<p><strong>Raise the odds of each application.</strong> One application with success probability <span class="math inline">\(p_1\)</span> is worth <span class="math inline">\(k\)</span> ordinary applications with probability <span class="math inline">\(p_0\)</span> when they give the same chance of at least one success:</p>
+<p><span class="math display">\[
+k = \frac{\ln(1-p_1)}{\ln(1-p_0)}
+\]</span></p>
+<p>In one applicant-tracking vendor’s data on 38 million applications, 40% of referred candidates reached an interview against 3% of cold applicants (<a href="https://www.ashbyhq.com/talent-trends-report/reports/referrals">Ashby</a>), which makes one referral worth about 17 cold applications. That is a raw comparison, not a causal estimate: referred candidates differ from others. Firm-level studies agree on the direction.</p>
+<p><strong>Spread across different screens.</strong> If half of the scoring noise is shared across employers, for instance because they use the same screening software, the chance that a good candidate gets no callback from 25 applications rises from 17% to 55%. Varying company size, sector and route in (direct, referral, recruiter) diversifies that risk; more of the same does not.</p>
+<p><strong>If you are strong, seek processes that test the work.</strong> Moving from a prose screen to a work sample plus interview doubles the callback odds of a candidate two standard deviations above the pool (9.9% to 21.2%) and lowers those of an average candidate (4.7% to 3.1%). Openings that test real work early are where ability is most likely to be seen. Smaller pools help too: the chance of topping a pool falls steeply with its size.</p>
+<p><strong>Lead with what can be checked, and use AI for clarity, not content.</strong> Tailored prose no longer sets you apart. Public work, test results and contactable referees do. Making true content clearer with AI is supported by the evidence; inventing content is what work samples and in-person rounds exist to catch.</p>
+<p><strong>Apply early where a posting may close.</strong> On one technical-jobs platform the median posting stayed open about a week and almost half of all applications went to postings less than 48 hours old (<a href="https://econpapers.repec.org/RePEc:nbr:nberwo:32320">Davis &amp; Samaniego de la Parra 2024</a>). Under a fixed deadline with batch review, timing does not matter.</p>
+<p>The irony is that each of these is sensible for one person, and that followed by everyone, they are exactly the congestion described above.</p>
+<h2 id="how-sure-are-we">How sure are we?</h2>
+<p>The arithmetic and the classical theorems are solid; the magnitudes from the solved model are illustrations; a complete better design is still a conjecture.</p>
+<p><strong>Solid.</strong> The order-statistics results are exact under their assumptions and were reproduced independently. The classical theorems (stability, the impossibility of two-sided truthfulness, Myerson–Satterthwaite) are decades old, though each holds only under its stated conditions, and those conditions matter.</p>
+<p><strong>Model-dependent.</strong> The equilibrium model’s numbers, such as “56% burned” or “a cap doubles surplus”, belong to one stylized parameterization. The case-study figures rest on assumed validities. Several of the 2025–2026 results cited are recent preprints that have not finished peer review.</p>
+<p><strong>Open.</strong></p>
+<ul>
+<li>No one has proven that a full pipeline of signals, interviews and clearing keeps its guarantees when the layers are stacked.</li>
+<li>No equilibrium model yet has AI on both sides: applicants optimizing text against employers’ learned screens.</li>
+<li>Whether the main waste is screening (firms reading applications from people who are no longer available) or application spending (lottery tickets) is an empirical question.</li>
+</ul>
+<p>One more caution about how this was produced. The report and the technical note went through several rounds of independent review by other AI systems, and those reviews caught real mistakes: a referral figure taken from a secondary source that had misquoted the original, two equilibria a numerical solver had missed, and a number of theorems quoted without their conditions. All were corrected before this article. Fresh eyes found errors every round, which is a reason to treat any single number here as checkable, not final.</p>
+<h2 id="full-report-technical-note-and-code">Full report, technical note and code</h2>
+<ul>
+<li><a href="files/job-matching-report.pdf">Full research report: Designing better job matching systems</a> (PDF, 17 pages): the state of the theory, with every source.</li>
+<li><a href="files/job-matching-summary.pdf">Three-page summary</a> (PDF)</li>
+<li><a href="files/job-matching-technical-note.pdf">Technical note: a fully specified simulation and a solved equilibrium model</a> (PDF, 6 pages)</li>
+<li><a href="files/job-matching-case-study.pdf">Case study: one real hiring round (37signals, 2025)</a> (PDF, 2 pages)</li>
+<li>Code (Python 3 with NumPy and SciPy): <a href="files/code/selection_sim.py">selection_sim.py</a> for the selection simulation, <a href="files/code/equilibrium_model.py">equilibrium_model.py</a> for the equilibrium model, and <a href="files/code/run_equilibrium_v2.py">run_equilibrium_v2.py</a> to reproduce the model’s tables.</li>
+</ul>
+<h2 id="further-reading">Further reading</h2>
+<p><strong>Selection and signalling</strong></p>
+<ul>
+<li><a href="https://www.siop.org/tip-article/is-cognitive-ability-the-best-predictor-of-job-performance">Sackett et al. (2022), revised validity estimates for hiring methods, via SIOP</a></li>
+<li><a href="https://arxiv.org/abs/2511.08785">Galdin &amp; Silbert (2025), Making Talk Cheap: Generative AI and Labor Market Signaling</a></li>
+<li><a href="https://arxiv.org/abs/2509.25054">Cui, Dias &amp; Ye (2025), Signaling in the Age of AI: Evidence from Cover Letters</a></li>
+<li><a href="https://arxiv.org/abs/2312.09841">Peng &amp; Garg (2024), Monoculture in Matching Markets</a></li>
+<li><a href="https://arxiv.org/abs/2605.27371">Bommasani et al. (2026), Algorithmic Monocultures in Hiring</a></li>
+</ul>
+<p><strong>Congestion and search</strong></p>
+<ul>
+<li><a href="https://faculty.georgetown.edu/albrecht/agvfinalversion.pdf">Albrecht, Gautier &amp; Vroman (2006), Equilibrium Directed Search with Multiple Applications</a></li>
+<li><a href="https://business.columbia.edu/sites/default/files-efs/citation_file_upload/ssrn-2427960.pdf">Arnosti, Johari &amp; Kanoria (2021), Managing Congestion in Matching Markets</a></li>
+<li><a href="https://lfmann.github.io/files/papers/2026/bm_draft_10_15_26.pdf">Bagga &amp; Mann (2026 draft), Job Search Technology, Selection, and Hiring</a></li>
+<li><a href="https://econpapers.repec.org/RePEc:nbr:nberwo:32320">Davis &amp; Samaniego de la Parra (2024), Application Flows</a></li>
+</ul>
+<p><strong>Matching theory and design</strong></p>
+<ul>
+<li><a href="https://stanford.edu/~alroth/papers/1982_MOR_EconomicsOfMatching.pdf">Roth (1982), The Economics of Matching: Stability and Incentives</a></li>
+<li><a href="https://www.cs.princeton.edu/courses/archive/spr10/cos444/papers/myerson_satterthwaite83.pdf">Myerson &amp; Satterthwaite (1983), Efficient Mechanisms for Bilateral Trading</a></li>
+<li><a href="https://arxiv.org/abs/2602.20358">Babaioff, Gil &amp; Romm (2026), Efficient Interview Scheduling for Stable Matching</a></li>
+<li><a href="https://www.nber.org/papers/w31612">Davis, Greenberg &amp; Jones (2023), the US Army deferred-acceptance trial</a></li>
+<li><a href="http://journals.stfm.org/familymedicine/2026/november-december/white-0251/">White et al. (2026), residency preference signalling</a></li>
+</ul>
+<p><strong>The case and the applicant’s view</strong></p>
+<ul>
+<li><a href="https://jobs.rubyonrails.org/jobs/2120-junior-rails-programmer-37signals">37signals junior programmer posting (2025)</a>, <a href="https://world.hey.com/dhh/we-ll-always-need-junior-programmers-69ddb4a1">founder’s post</a> and <a href="https://www.buzzsprout.com/2260539/17663283/transcript">podcast transcript</a></li>
+<li><a href="https://www.ashbyhq.com/talent-trends-report/reports/referrals">Ashby talent trends report: referrals</a></li>
+</ul>
+    <div class="footer"><a href="../">More posts</a></div>
+  </div>
+</body>
+</html>
