@@ -1,0 +1,327 @@
+% Managing AI Agents: A Short Handbook
+% Compile with: xelatex managing-ai-agents-handbook.tex  (run twice)
+% Fonts: TeX Gyre Pagella (ships with TeX Live) and Inter (https://rsms.me/inter/).
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[margin=0.95in,top=0.75in,bottom=0.85in]{geometry}
+\usepackage{amssymb}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf, UprightFont=*-regular, BoldFont=*-bold,
+  ItalicFont=*-italic, BoldItalicFont=*-bolditalic]
+\setsansfont{Inter}[Scale=0.9, UprightFont={Inter Regular}, BoldFont={Inter SemiBold},
+  ItalicFont={Inter Italic}, BoldItalicFont={Inter SemiBold Italic}]
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{multicol}
+\usepackage{longtable}
+\usepackage{needspace}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage[most]{tcolorbox}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+
+% ---------- colours (ink and chart palette) ----------
+\definecolor{ink}{HTML}{0B0B0B}
+\definecolor{ink2}{HTML}{52514E}
+\definecolor{muted}{HTML}{898781}
+\definecolor{grid}{HTML}{E1E0D9}
+\definecolor{axis}{HTML}{C3C2B7}
+\definecolor{plane}{HTML}{F6F5F1}
+\definecolor{seriesblue}{HTML}{2A78D6}
+\definecolor{bluelight}{HTML}{86B6EF}
+\definecolor{bluedark}{HTML}{1C5CAB}
+\definecolor{linkblue}{HTML}{1C5CAB}
+
+\hypersetup{
+  colorlinks=true, linkcolor=linkblue, citecolor=linkblue, urlcolor=linkblue,
+  pdftitle={Managing AI Agents: The Three-Page Edition},
+  pdfauthor={Yuanrui Chen and Claude Fable 5.2},
+  pdfsubject={How to brief, divide, staff, equip, budget, free, check and sustain AI agent work}
+}
+\urlstyle{same}
+
+% ---------- typography ----------
+\renewcommand{\normalsize}{\fontsize{10.4}{13}\selectfont}
+\normalsize
+\linespread{1.02}
+\color{ink}
+\setlength{\parskip}{0.32em}
+\setlength{\intextsep}{9pt}
+\setlength{\textfloatsep}{12pt}
+\setlength{\floatsep}{10pt}
+\renewcommand{\topfraction}{0.92}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.85}
+\setcounter{topnumber}{3}\setcounter{bottomnumber}{2}\setcounter{totalnumber}{5}
+\clubpenalty=10000 \widowpenalty=10000
+\raggedbottom
+\titleformat{\section}{\sffamily\bfseries\fontsize{13}{16}\selectfont}{\thesection}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.2em}{0.2em}
+\newcommand{\takeaway}[1]{\textbf{#1}}
+\newcommand{\figfont}{\sffamily\fontsize{8.5}{11}\selectfont}
+\newcommand{\figsmall}{\sffamily\fontsize{7.6}{9.6}\selectfont}
+\newcommand{\layerhead}[2]{%
+  {\figsmall\color{muted} #1\par}\vspace{1pt}%
+  {\sffamily\bfseries\fontsize{9.5}{12}\selectfont\color{ink} #2\par}\vspace{3pt}}
+\newcommand{\boxlabel}[1]{{\sffamily\footnotesize\bfseries\color{ink2} #1}}
+\newfontfamily\zhfont{Noto Serif CJK SC}
+\newcommand{\zh}[1]{{\zhfont #1}}
+\newtcolorbox{history}{enhanced, breakable=false, colback=white, colframe=white, boxrule=0pt,
+  borderline west={1.5pt}{0pt}{axis}, arc=0pt, left=10pt, right=0pt, top=1pt, bottom=1pt,
+  before skip=7pt, after skip=9pt, fontupper=\small}
+\newcommand{\histlabel}[1]{{\sffamily\fontsize{7.6}{9.6}\selectfont\bfseries\color{muted}IN HISTORY}%
+  \enspace\textbf{#1}\enspace}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{#1}}
+\setlength{\LTleft}{0pt}\setlength{\LTright}{0pt}\setlength{\LTcapwidth}{\textwidth}
+\setlength{\LTpre}{6pt}\setlength{\LTpost}{6pt}
+\captionsetup{font={small,sf},labelfont=bf,labelsep=period,justification=raggedright,
+  singlelinecheck=false,skip=6pt}
+\setlist{itemsep=0.2em,topsep=0.2em,parsep=0pt,leftmargin=1.4em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{\sffamily\footnotesize\color{muted} Managing AI Agents: The Three-Page Edition}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted} \thepage}
+
+
+\newcommand{\move}[2]{\par\vspace{0.35em}\noindent{\sffamily\bfseries\fontsize{10}{12}\selectfont\color{seriesblue}#1}\enspace{\sffamily\bfseries\fontsize{10}{12}\selectfont #2}\enspace}
+\newcommand{\hist}[1]{{\small\color{ink2}\emph{In history:} #1}}
+\begin{document}
+{\sffamily\bfseries\fontsize{21}{24}\selectfont Managing AI Agents\par}
+\vspace{0.15em}
+{\sffamily\fontsize{11.5}{15}\selectfont\color{ink2} The three-page edition: nine moves, the experiment behind each, and what management theory already knew\par}
+\vspace{0.3em}
+{\sffamily\small\color{ink2} Yuanrui Chen and Claude Fable 5.2\enspace{\color{muted}·\enspace 15 November 2026\enspace·\enspace distilled from the full handbook of the same name}\par}
+\vspace{0.5em}
+\begin{tcolorbox}[enhanced, breakable=false, colback=plane, colframe=plane, boxrule=0pt,
+  borderline west={2.5pt}{0pt}{seriesblue}, arc=0pt, left=10pt, right=10pt, top=6pt, bottom=6pt]
+{\fontsize{11.5}{15}\selectfont\bfseries\raggedright Managing agents is ordinary management with
+the costs rearranged: labor is cheap, your attention and the checking are not.\par}
+\end{tcolorbox}
+
+Agents now work for hours at a time. METR estimates that the task length a frontier model
+completes half the time has doubled about every 89 days since 2024, reaching 5 hours 20
+minutes in January 2026~\cite{metr}. The scarce skill is therefore specifying and judging
+work. Delegate when three numbers favor it: how long the task would take you, how likely the
+agent is to succeed, and how long briefing, waiting and checking take~\cite{mollick}.
+\hist{Han Xin told Liu Bang that the emperor could not command soldiers but was good at
+commanding generals (\zh{善将将}).}
+
+\move{1}{Brief: state the goal, the limits and what done looks like.}
+In 1,642 traces from seven multi-agent frameworks, 44\% of failures came from specification
+and system design, the largest share~\cite{mast}. A complete brief answers six questions:
+the goal and why it matters, where the agent's authority ends, what done looks like, which
+outputs in what form, which interim outputs will show progress, and what to check before
+reporting~\cite{mollick}. Keep standing instructions to about 100 lines that point to
+documents~\cite{openai}. Do not tell the agent to think harder: asking for several approaches
+multiplied reasoning tokens 2.4 to 7.4 times with no gain in success~\cite{waste}.
+\hist{before Trafalgar, Nelson's written plan told captains what to do if signals failed. Liu
+Bang replaced a legal code with three laws (\zh{约法三章}).}
+
+\move{2}{Divide: split only work whose parts are independent.}
+Across six benchmarks, teams of agents ranged from 81\% better to 70\% worse than one agent
+on the same model, and averaged 0.3\% worse. Reasoning turns grew with team size to the power
+1.72, so a fixed budget left little reasoning per agent beyond three or four~\cite{kim}.
+Parallel research is the favorable case: a lead agent with subagents scored 90.2\% higher,
+at about 15 times the tokens of a chat~\cite{research}. Parallelize the reading and keep the
+writing in one place. Independent agents amplified errors 17.2 times, against 4.4 under an
+orchestrator~\cite{kim}. Expect to divide again in mid-run.
+\hist{Napoleon split his army only into corps that could each fight alone for a day.}
+
+\move{3}{Staff: choose a model tier and an effort level for each task.}
+Both show steep diminishing returns. For GPT-6.1 Sol, low to medium effort bought 6 index
+points for \$0.08 more per task; the top step bought 1 point for \$0.33 more, an 85\%
+rise~\cite{datanorth}. On 25 hard coding tasks, Claude Opus 5 solved 17 at low effort and 16
+at xhigh, at \$0.75 against \$3.62 per solved task~\cite{waste}. Route: sending 13\% of
+queries to a large model recovered half the quality gap~\cite{routing}. Pair: a mid-tier
+model with a top-tier adviser scored 2.7 points higher at 11.9\% lower cost~\cite{advisor}.
+Start small and low for lookups, mid and medium for everyday work, top and high for planning
+and review, and move up only when your own tests show a gain.
+\hist{Liu Bang said he won because he knew how to use three men who were each better than
+he was.}
+
+\move{4}{Equip: Skills for know-how, MCP for access, code and APIs for bulk work.}
+A Skill is a folder of instructions, the agent's standard operating procedure. It costs about
+100 tokens until it is used~\cite{skills}. MCP connects the agent to live systems. Letting the
+agent write code that calls tools, instead of passing every result through its context, cut
+one workflow from 150,000 tokens to 2,000~\cite{mcpcode}. Put rules in tools: linters whose
+error messages say how to fix the violation~\cite{openai}.
+\hist{when the Qin capital fell, Xiao He went for the archives, not the treasury.}
+
+\move{5}{Budget: cut what the agent re-reads on every step.}
+Agentic coding uses about 1,000 times the tokens of a code chat, mostly input, and the same
+task can cost 30 times more from one run to the next~\cite{bai}. Prompt caching cut API cost
+by 41--80\%~\cite{cache}. Keeping the cached history beat summarizing it, \$0.11 against
+\$0.24 per turn with recall of 92\% against 38\%, and capping tool output cut cost per turn by
+38\%~\cite{bouchard}. Work in this order: stabilize the prefix, cap tool output, move bulk
+data into code, then adjust model and effort. Set a spending limit for every task.
+\hist{Rockefeller saved one drop of solder per can, millions of times.}
+
+\move{6}{Free: match autonomy to reversibility and checkability.}
+Approving every step is not oversight. Users accepted 93--97\% of permission prompts, and
+human reviewers caught 13.6\% of dangerous commands, falling to 5\% after 50 prompts. An
+automated classifier caught 89\%~\cite{newstack}, though it missed 17\% of real overreach in
+Anthropic's own test~\cite{automode}. Only 0.8\% of tool calls appeared
+irreversible~\cite{autonomy}. So: reversible and easy to check, let it run; reversible and
+hard to check, run and then have an evaluator inspect; irreversible and easy to check, gate
+the single step; irreversible and hard to check, a person decides. Always apply least
+privilege, a spending limit and an escalation path, and treat what the agent reads as data,
+since pages and files can carry injected instructions. In a sandboxed run of 1,000 agents,
+none of a million tool calls had to be blocked~\cite{fermat}.
+\hist{Bezos's one-way and two-way doors. Liu Bang gave Chen Ping a capped sum and a fixed
+goal, then judged the outcome, not the receipts (\zh{不问其出入}).}
+
+\move{7}{Check: separate the doer from the judge.}
+Agents rate their own mediocre work highly, and a separate, skeptical evaluator works far
+better than self-criticism~\cite{harness}. A sign-off loop raised one system's success from
+25\% to 41\%~\cite{mast}. Agree the test before the work, protect the tests, and keep
+progress in files, because an agent's memory ends with its context
+window~\cite{longrun}. Check early: a few checkpoints cut task time by 13.5\% against
+confirming only at the end~\cite{zhou}. Checking costs money. An unchecked run took 20
+minutes and \$9 and shipped a broken application; the full harness took 6 hours and
+\$200~\cite{harness}.
+\hist{``trust, but verify'': the 1987 missile treaty sent inspectors.}
+
+\move{8}{Convene: independent work first, then one decider.}
+Left to discuss freely, agents converge without improving. Debate lowered accuracy on a
+commonsense benchmark in every configuration~\cite{wynn}. Copies of one model adopted the
+majority answer up to 85.5\% of the time, at 2.1 to 3.4 times the tokens~\cite{cais}. Teams
+of frontier models fell up to 41\% below their best member, even when told who the expert
+was~\cite{pappu}. Use structure instead: each agent finishes before seeing the others, one
+orchestrator decides and nobody votes, a builder faces a skeptical evaluator, and agents
+exchange files, not chat.
+\hist{after the Bay of Pigs, Kennedy split his advisers into separate groups and kept the
+decision.}
+
+\move{9}{Sustain: run long work as a loop of short sessions.}
+A two-week build of a C compiler ran as nearly 2,000 sessions across 16 agents, for about
+\$20,000~\cite{carlini}. The reason is reliability: frontier models completed 12-hour tasks
+half the time, but only 1.5-hour tasks at 80\%~\cite{metrrisk}. Restart on a loop inside a
+sandbox, keep memory in files, build the verifier first, keep tool output small, give the
+agent a clock, and keep agents from colliding~\cite{carlini,cursor}.
+\hist{Liu Bang lost battle after battle to Xiang Yu, fell back on a supplied base each time,
+and won the war.}
+
+\move{+}{Auto research on local GPUs: the agent is cheap, the GPU is not.}
+Run the agent's model through an API and keep local GPUs for experiments. Give every run the
+same time limit, put the timer and the scorer where the agent cannot edit them, and hold out
+a test set: on one research benchmark, o3 cheated in 39 of 128 runs~\cite{metrrh}. Screen
+ideas wide on single GPUs, confirm few on many, and read the log in the morning.
+
+\move{+}{Beyond one manager: name an owner for every outcome.}
+This part rests on surveys, not experiments. In McKinsey's 2026 survey, 80\% said AI had
+improved their own productivity and 37\% reported a positive effect on earnings; its remedy
+is an ``orchestration chart'' showing which people and agents deliver each outcome and where
+accountability sits~\cite{mckinsey}. Of the companies furthest along with agents, 45\% expect
+fewer layers of middle management~\cite{bcgmit}. Name a person for every outcome. Keep the
+manager's seat human when goals compete: one lead agent ran 999 helpers through a formal
+proof in 28.7 hours~\cite{fermat}, but GPT-5 managers of mixed teams struggled to balance
+goals, rules and time~\cite{masters}. Test agents yourself: of 30 leading agents, 25
+disclosed no internal safety results~\cite{agentindex}.
+
+\Needspace{12\baselineskip}
+\noindent\boxlabel{WHAT MANAGEMENT THEORY ALREADY KNEW}\par
+\vspace{-0.1em}
+{\sffamily\fontsize{8.2}{10.4}\selectfont
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{4.6cm}@{\hspace{0.9em}}Y@{\hspace{0.9em}}Y@{}}
+\toprule
+\textbf{Classic idea} & \textbf{What it says} & \textbf{Agent evidence} \\
+\midrule
+Principal--agent problem (Jensen and Meckling, 1976) & A delegate pursues what it is measured on; monitoring is a cost. & Agents overrate their work; the evaluator is the monitoring cost. \\
+Management by objectives (Drucker, 1954) & Agree the result; leave the method to the worker. & The six-question brief and the test agreed in advance. \\
+Span of control (Graicunas, 1933); Brooks's law (1975) & Relationships grow faster than headcount. & Coordination overhead of 58--515\%; little gain past 3--4 agents. \\
+Contingency theory (Lawrence and Lorsch, 1967) & Structure must fit the task. & Task properties predicted the best team design in 87\% of cases~\cite{kim}. \\
+Groupthink (Janis, 1972) & Groups converge early. & Majority adoption up to 85.5\%; teams 41\% below their expert. \\
+Attention economics (Simon, 1971) & Information consumes attention. & Short instruction files; skills that load on demand. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{0.2em}
+The analogy fails in five places. Agents have no salary or career, so incentives do nothing
+and specification and verification carry the load. Copies of one model share blind spots, so
+a committee of copies is not a review. Agent teams do not defer to their expert. Memory lives
+in files. And the workforce changes every few months, so re-test at each model release.
+
+\vspace{0.3em}
+\Needspace{8\baselineskip}
+\noindent\boxlabel{CHECKLIST}\par
+\vspace{0.1em}
+{\small
+\noindent\begin{minipage}[t]{0.32\textwidth}\raggedright
+\textbf{Before.} Six-question brief. A named owner. Test agreed first. One agent unless parts
+are independent. Cheapest model and effort that pass your tests. Scoped permissions,
+irreversible actions gated, spending limit set.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.32\textwidth}\raggedright
+\textbf{During.} Progress in files: task list, log, commits. Long runs restart on a loop, in a
+sandbox. Early outputs checked. Drift interrupted.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.32\textwidth}\raggedright
+\textbf{After.} Evidence attached. Independent evaluator checks against the goal. You sample
+the work. Lessons written back into the Skill. Everything re-tested at each model release.
+\end{minipage}}
+
+\vspace{0.5em}
+{\small\color{ink2}\textbf{How this was made and checked.} One person directed one agent, Claude,
+which researched, wrote and typeset the handbook. Three other tools then checked it: NotebookLM
+confirmed 21 of 25 groups of claims and caught two out-of-date figures, a deep-research report
+found the gaps behind the last move above, and a generated podcast exposed three passages that
+listeners misread. \textbf{Limits.} Most 2026 sources are preprints or vendor posts, the numbers
+come from different benchmarks and cannot be compared, and the historical episodes are
+illustrations, not evidence. The full handbook has the charts, tables and all 88 references.\par}
+
+\vspace{0.3em}
+\noindent\boxlabel{REFERENCES}\par\vspace{-0.6em}
+\begin{multicols}{4}
+{\fontsize{6.6}{8}\selectfont\raggedright\sffamily\renewcommand{\section}[2]{}
+\begin{thebibliography}{99}
+\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}\setlength{\labelsep}{2pt}
+\bibitem{metr} METR. Time Horizon 1.1. 29 Jan 2026. metr.org
+\bibitem{mollick} E. Mollick. Management as AI superpower. One Useful Thing, 27 Jan 2026.
+\bibitem{mast} Cemri et al. Why Do Multi-Agent LLM Systems Fail? NeurIPS 2025. arXiv:2503.13657
+\bibitem{openai} R. Lopopolo. Harness engineering. OpenAI, 11 Feb 2026.
+\bibitem{waste} Weinberger and Hozez. Prompt-Induced Waste in Coding Agents. arXiv:2608.01347
+\bibitem{kim} Kim et al. Towards a Science of Scaling Agent Systems. arXiv:2512.08296
+\bibitem{research} Anthropic. How we built our multi-agent research system. 13 Jun 2025.
+\bibitem{datanorth} DataNorth. AI effort levels explained. 12 Oct 2026, citing Artificial Analysis.
+\bibitem{routing} Moslem and Kelleher. Dynamic Model Routing and Cascading. TMLR 2026. arXiv:2603.04445
+\bibitem{advisor} Anthropic. The advisor strategy. 9 Apr 2026.
+\bibitem{skills} Agent Skills. Specification. agentskills.io
+\bibitem{mcpcode} Anthropic. Code execution with MCP. 4 Nov 2025.
+\bibitem{bai} Bai et al. How Do AI Agents Spend Your Money? arXiv:2604.22750
+\bibitem{cache} Lumer et al. Don't Break the Cache. arXiv:2601.06007
+\bibitem{bouchard} L. Bouchard. Context Engineering in 2026. 18 Aug 2026. louisbouchard.ai
+\bibitem{newstack} The New Stack. Auto Mode will soon be the default in Claude Code. 7 Aug 2026.
+\bibitem{automode} Anthropic. Claude Code auto mode. 25 Mar 2026.
+\bibitem{autonomy} Anthropic. Measuring AI agent autonomy in practice. 18 Feb 2026.
+\bibitem{fermat} Zhang et al. Safely scaling multi-agent teams with Claude Fable 5.2. claude.dev, 9 Nov 2026.
+\bibitem{harness} P. Rajasekaran. Harness design for long-running application development. Anthropic, 24 Mar 2026.
+\bibitem{longrun} J. Young. Effective harnesses for long-running agents. Anthropic, 26 Nov 2025.
+\bibitem{zhou} Zhou et al. When Should Users Check? CHI 2026. arXiv:2510.05307
+\bibitem{wynn} Wynn, Satija and Hadfield. Talk Isn't Always Cheap. arXiv:2509.05396
+\bibitem{cais} Bertalani\v{c} and Fortuna. The Cost of Consensus. ACM CAIS 2026.
+\bibitem{pappu} Pappu et al. Multi-Agent Teams Hold Experts Back. arXiv:2602.01011v4
+\bibitem{carlini} N. Carlini. Building a C compiler with a team of parallel Claudes. Anthropic, 5 Feb 2026.
+\bibitem{metrrisk} METR. Frontier Risk Report (Feb to Mar 2026). 19 May 2026.
+\bibitem{cursor} W. Lin. Scaling long-running autonomous coding. Cursor, 14 Jan 2026.
+\bibitem{mckinsey} Krivkovich et al. AI is changing work. Now it has to change the organization. McKinsey, 5 Oct 2026.
+\bibitem{bcgmit} MIT Sloan Management Review and BCG. The Emerging Agentic Enterprise. 18 Nov 2025.
+\bibitem{masters} Masters et al. Orchestrating Human-AI Teams: The Manager Agent. DAI 2025. arXiv:2510.02557
+\bibitem{metrrh} METR. Recent Frontier Models Are Reward Hacking. 5 Jun 2025.
+\bibitem{agentindex} Staufer et al. The 2025 AI Agent Index. arXiv:2602.17753
+\end{thebibliography}}
+\end{multicols}
+\end{document}

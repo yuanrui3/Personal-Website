@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Yuanrui Chen">
+  <meta name="description" content="Nine moves for briefing, staffing, checking and sustaining agent work, with the experiment behind each and the management theory that predicted it">
+  <title>Managing AI agents: a short handbook | Yuanrui Chen</title>
+  <link rel="stylesheet" href="../../stylesheet.css">
+  <link rel="stylesheet" href="../blog.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="crumbs"><a href="../../">Yuanrui Chen</a> &nbsp;/&nbsp; <a href="../">Blog</a></div>
+    <h1 class="title">Managing AI agents: a short handbook</h1>
+    <p class="subtitle">Nine moves for briefing, staffing, checking and sustaining agent work, with the experiment behind each and the management theory that predicted it</p>
+    <p class="date">November 16, 2026</p>
+<p><strong>Managing agents is ordinary management with the costs rearranged: labor is cheap, your attention and the checking are not.</strong></p>
+<p>This handbook turns that idea into nine moves, from writing the brief to keeping a long run alive, and ties each to an experiment from 2025 or 2026. It adds a section on running research loops on local GPUs, a section on who owns the outcome, and a table of the management theory that saw most of this coming. It was written by Yuanrui Chen and Claude Fable 5.2. The typeset handbook (21 pages, with all 88 references), a three-page edition and their LaTeX sources are linked at the end.</p>
+<h2 id="how-this-handbook-was-written">How this handbook was written</h2>
+<p>This document is itself delegated agent work. One person directed it, and one AI agent, Claude, did the research, writing and checking in a single session. The work followed the handbook’s own moves, and three other tools then checked it.</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Move</th>
+<th>What happened</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Brief</td>
+<td>The person wrote a one-paragraph assignment, then redirected the work six times while it ran: to change the format, widen the scope, require experimental data and add this note. After reading each version, the person asked for more: a section on long runs, the historical analogies, a staffing plan for the next revision and a section on auto research with local GPUs.</td>
+</tr>
+<tr class="even">
+<td>Division</td>
+<td>One agent, no subagents. Research and writing depend on one another, the case where section 3 says a team does not pay.</td>
+</tr>
+<tr class="odd">
+<td>Tools</td>
+<td>Web search and page retrieval for more than 40 recent sources, and a LaTeX toolchain for the typeset PDF edition.</td>
+</tr>
+<tr class="even">
+<td>Memory</td>
+<td>The session outgrew the agent’s context window. Work resumed from a written summary of sources and decisions, as section 8 prescribes.</td>
+</tr>
+<tr class="odd">
+<td>Autonomy</td>
+<td>The agent chose the sources, structure and figures without step-by-step approval. The person steered by interrupting.</td>
+</tr>
+<tr class="even">
+<td>Checking</td>
+<td>Each number from a recent source was traced to that source’s text. One paper’s superseded figures were replaced with those of its current version.</td>
+</tr>
+<tr class="odd">
+<td>Independent checks</td>
+<td>No independent evaluator reviewed the first version. Yuanrui Chen then ran three other tools over it: a source check that caught two out-of-date figures, a search for gaps and a listening test. Section 15 gives the results.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-handbook-in-nine-moves">The handbook in nine moves</h2>
+<p>Each move rests on one experiment from 2025 or 2026, and each restates something management theory already knew (section 13).</p>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 36%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Move</th>
+<th>Rule</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2. Brief</td>
+<td>State the goal, the limits and what done looks like.</td>
+<td>44% of multi-agent failures trace to specification and system design (<a href="https://arxiv.org/abs/2503.13657">Cemri et al.</a>)</td>
+</tr>
+<tr class="even">
+<td>3. Divide</td>
+<td>Split only work whose parts are independent.</td>
+<td>Teams ranged from 81% better to 70% worse than one agent (<a href="https://arxiv.org/abs/2512.08296">Kim et al.</a>)</td>
+</tr>
+<tr class="odd">
+<td>4. Staff</td>
+<td>Choose a model tier and an effort level for each task.</td>
+<td>The top effort step bought 1 point for 85% more cost (<a href="https://datanorth.ai/blog/ai-effort-levels-explained">DataNorth</a>)</td>
+</tr>
+<tr class="even">
+<td>5. Equip</td>
+<td>Skills for know-how, MCP for access, code and APIs for bulk work.</td>
+<td>150,000 tokens cut to 2,000 by calling tools from code (<a href="https://www.anthropic.com/engineering/code-execution-with-mcp">Anthropic</a>)</td>
+</tr>
+<tr class="odd">
+<td>6. Budget</td>
+<td>Cut what the agent re-reads on every step.</td>
+<td>Prompt caching lowered API cost by 41–80% (<a href="https://arxiv.org/abs/2601.06007">Lumer et al.</a>)</td>
+</tr>
+<tr class="even">
+<td>7. Free</td>
+<td>Match autonomy to reversibility and checkability.</td>
+<td>After 50 prompts, human approvers caught 5% of dangerous commands (<a href="https://thenewstack.io/claude-code-auto-mode/">The New Stack</a>)</td>
+</tr>
+<tr class="odd">
+<td>8. Check</td>
+<td>Separate the doer from the judge.</td>
+<td>A sign-off loop raised one system’s success from 25% to 41% (<a href="https://arxiv.org/abs/2503.13657">Cemri et al.</a>)</td>
+</tr>
+<tr class="even">
+<td>9. Convene</td>
+<td>Independent work first, then one decider.</td>
+<td>Teams of frontier models fell up to 41% below their best member (<a href="https://arxiv.org/abs/2602.01011">Pappu et al.</a>)</td>
+</tr>
+<tr class="odd">
+<td>10. Sustain</td>
+<td>Run long work as a loop of short sessions.</td>
+<td>A two-week build ran as nearly 2,000 sessions (<a href="https://www.anthropic.com/engineering/building-c-compiler">Carlini</a>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="six-terms-used-below">Six terms used below</h2>
+<ul>
+<li><strong>Agent.</strong> A model that uses tools in a loop until a task is done.</li>
+<li><strong>Harness.</strong> Everything around the model: instructions, tools, permissions and checks.</li>
+<li><strong>Context window.</strong> The text a model can see at one time. It is read again, and billed again, on every step.</li>
+<li><strong>Effort level.</strong> A setting, from low to max, for how much reasoning a model spends on a request.</li>
+<li><strong>Orchestrator and subagents.</strong> A lead agent that hands parts of a task to other agents.</li>
+<li><strong>Evaluator.</strong> A separate agent, test or person that judges finished work.</li>
+</ul>
+<h2 id="why-this-is-a-management-problem">1. Why this is a management problem</h2>
+<p>Agents now work for hours at a time, so the scarce skill is specifying and judging work. <a href="https://metr.org/blog/2026-01-29-time-horizon-1-1/">METR</a> estimates that the task length a frontier model completes half the time has doubled about every 89 days since 2024. It reached 5 hours 20 minutes for Claude Opus 4.5 in the January 2026 measurement. In Claude Code, the longest turns grew from under 25 minutes to over 45 minutes between late September 2025 and early January 2026 (<a href="https://www.anthropic.com/research/measuring-agent-autonomy">Anthropic</a>).</p>
+<p><a href="https://www.oneusefulthing.org/p/management-as-ai-superpower">Ethan Mollick</a> reduces the decision to delegate to three numbers: how long the task would take you, how likely the agent is to succeed, and how long briefing, waiting and checking take. His three ways to improve the odds are better instructions, better feedback and work that is easier to judge. A <a href="https://hbr.org/2026/03/to-scale-ai-agents-successfully-think-of-them-like-team-members">Harvard Business Review analysis</a> says the same from the organization’s side: give each agent a role, scoped authority, trusted sources and an audit trail, and widen its autonomy gradually.</p>
+<blockquote>
+<p><strong>In history: the commander of generals.</strong> Han Xin, the finest general of his age, told Liu Bang, founder of China’s Han dynasty, that the emperor could lead 100,000 soldiers at most, while for himself more was always better. Asked why he had then ended up Liu Bang’s prisoner, he answered that the emperor could not command soldiers but was good at commanding generals (善将将). Andrew Carnegie wanted his tombstone to say that he “knew how to enlist in his service better men than himself” (<a href="https://www.carnegiehall.org/Explore/Articles/2020/08/11/Here-Lies-a-Man">Carnegie Hall</a>).</p>
+</blockquote>
+<h2 id="brief-write-an-assignment-not-a-prompt">2. Brief: write an assignment, not a prompt</h2>
+<p>The largest share of agent failures begins before the agent starts. A <a href="https://arxiv.org/abs/2503.13657">Berkeley-led study</a> annotated 1,642 execution traces from seven multi-agent frameworks. It attributed 44% of failures to system design and specification, 32% to misalignment between agents and 24% to verification.</p>
+<blockquote>
+<p><strong>In history: Nelson’s memorandum.</strong> Twelve days before Trafalgar, Nelson gave his captains the plan in writing, with a rule for the moment it failed: if signals could not be seen, a captain who “places his ship alongside that of an enemy” could not do very wrong. Liu Bang’s standing orders on taking the Qin capital were shorter still. He replaced a whole legal code with three laws (约法三章). An unattended agent is that captain: its brief must say what to do when the plan fails.</p>
+</blockquote>
+<p>A complete brief answers six questions (<a href="https://www.oneusefulthing.org/p/management-as-ai-superpower">Mollick</a>):</p>
+<ol type="1">
+<li>What is the goal, and why does it matter?</li>
+<li>Where does the agent’s authority end?</li>
+<li>What does “done” look like?</li>
+<li>Which outputs are wanted, and in what form?</li>
+<li>Which interim outputs will show progress?</li>
+<li>What must the agent check before it reports that it has finished?</li>
+</ol>
+<p>The list is the same when the delegator is itself an agent. In <a href="https://www.anthropic.com/engineering/multi-agent-research-system">Anthropic’s research system</a>, each subagent brief had to state an objective, an output format, the tools and sources to use, and the boundaries of the task. Without them, subagents duplicated one another’s searches.</p>
+<p>Three findings on wording:</p>
+<ul>
+<li><strong>Keep standing instructions short and point to the detail.</strong> <a href="https://openai.com/index/harness-engineering/">OpenAI’s Codex team</a> found that one large instruction file crowded out the task and went stale. They cut it to about 100 lines that serve as a table of contents for documents kept in the repository. Herbert Simon’s 1971 remark that “a wealth of information creates a poverty of attention” describes a context window exactly.</li>
+<li><strong>Fix ambiguity first.</strong> In a <a href="https://arxiv.org/abs/2608.01347">controlled study of coding agents</a>, tasks with an ambiguous scope had the lowest success rate in the benchmark, 83%.</li>
+<li><strong>Do not tell the agent to think harder.</strong> In the same study, asking for several approaches multiplied reasoning tokens by 2.4 to 7.4 across six open models. Success was 95.2% against a 96.5% baseline over 878 runs. Asking for certainty added 30% to 90% more reasoning, mostly repeated checks.</li>
+</ul>
+<h2 id="divide-split-work-along-its-dependency-lines">3. Divide: split work along its dependency lines</h2>
+<p>Independent parts reward a team of agents, and dependent steps punish one. <a href="https://arxiv.org/abs/2512.08296">Researchers at Google and MIT</a> ran 260 configurations across five architectures (one agent alone and four team designs), three model families and six benchmarks. The chart shows the change in task performance when a team replaced one agent running the same model.</p>
+<figure>
+<img src="fig-teams.svg" alt="Change in task performance when a team of agents replaces one agent running the same model; each row spans the worst and best of four team designs. Source: Kim et al., Towards a Science of Scaling Agent Systems (arXiv:2512.08296)." />
+<figcaption aria-hidden="true">Change in task performance when a team of agents replaces one agent running the same model; each row spans the worst and best of four team designs. Source: Kim et al., Towards a Science of Scaling Agent Systems (arXiv:2512.08296).</figcaption>
+</figure>
+<p>Averaged over all six benchmarks, teams did 0.3% worse than one agent. Once a single agent scored above about 45%, adding agents made results worse. Coordination overhead ran from 58% to 515% depending on the design. Reasoning turns grew with the number of agents to the power 1.72, so under a fixed budget each agent had little reasoning left beyond three or four agents.</p>
+<p>Two more studies point the same way. <a href="https://arxiv.org/abs/2609.19759">Yuan et al.</a> model each task as a graph of dependencies. Their team method beat one agent on the AgentIF-OneDay benchmark (71.8 against 53.6) and lost slightly on Terminal Bench (75.5 against 76.7).</p>
+<p><a href="https://www.anthropic.com/engineering/multi-agent-research-system">Anthropic’s research product</a> is the favorable case. A lead agent with parallel subagents scored 90.2% higher than a single agent on an internal research evaluation. It used about 15 times the tokens of a chat; a single agent uses about 4 times.</p>
+<blockquote>
+<p><strong>In history: Napoleon’s corps.</strong> Napoleon split his army into corps, each with its own infantry, cavalry, artillery and staff. A corps could march on its own road and fight alone for about a day until the others arrived. He divided the army only into parts that could stand alone.</p>
+</blockquote>
+<p>How to divide well:</p>
+<ol type="1">
+<li><strong>Plan in deliverables.</strong> In <a href="https://www.anthropic.com/engineering/harness-design-long-running-apps">Anthropic’s harness for long builds</a>, a planner turns a request of one to four sentences into a product specification. It stays high-level, so that an early technical mistake does not cascade.</li>
+<li><strong>Make each unit checkable by itself.</strong> An <a href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents">earlier harness</a> had an initializer agent write a list of more than 200 end-to-end features, all marked as failing. Each later session took one feature.</li>
+<li><strong>Size the team to the question.</strong> Anthropic’s rules of thumb were one agent and 3 to 10 tool calls for a fact, 2 to 4 subagents for a comparison, and more than 10 for complex research. Before these rules, the system sometimes launched 50 subagents for a simple query.</li>
+<li><strong>Parallelize the reading and keep the writing in one place.</strong> Independent agents with no central check amplified errors 17.2 times, against 4.4 times under an orchestrator (Kim et al.).</li>
+<li><strong>Test the division again with each new model.</strong> With Claude Opus 4.6 the sprint-by-sprint decomposition was removed, because the model could hold the whole build.</li>
+<li><strong>Expect to divide again while the work runs.</strong> In a <a href="https://claude.dev/blog/safely-scaling-multi-agent-teams-with-fable-5-2/">run with 1,000 agents</a>, the lead agent set aside 47 of its 60 subgoals after 27 minutes, put nearly all helpers on 10 others, and returned to the hard ones when those were done.</li>
+</ol>
+<h2 id="staff-choose-the-model-and-the-effort-level">4. Staff: choose the model and the effort level</h2>
+<p>Model tier and effort level are staffing decisions, and both show steep diminishing returns. The chart shows one model, GPT-6.1 Sol, at its five effort levels (<a href="https://datanorth.ai/blog/ai-effort-levels-explained">DataNorth</a>, citing Artificial Analysis figures read on 8 October 2026).</p>
+<figure>
+<img src="fig-effort.svg" alt="GPT-6.1 Sol at its five effort levels; the score axis starts at 40. Source: Artificial Analysis Intelligence Index, read on 8 October 2026, as reported by DataNorth." />
+<figcaption aria-hidden="true">GPT-6.1 Sol at its five effort levels; the score axis starts at 40. Source: Artificial Analysis Intelligence Index, read on 8 October 2026, as reported by DataNorth.</figcaption>
+</figure>
+<p>Low to medium bought 6 points for $0.08 more per task. Xhigh to max bought 1 point for $0.33 more.</p>
+<p>Coding agents show the same shape with more noise. On 25 hard SWE-bench Verified tasks run through Claude Code, Claude Opus 5 solved 17 at low effort, 18 at high and 16 at xhigh. Its cost per solved task rose from $0.75 to $1.89 to $3.62 (<a href="https://arxiv.org/abs/2608.01347">Weinberger and Hozez</a>).</p>
+<p>The smaller Claude Sonnet 5 needed the extra effort: it solved 12, 19 and 17. Every timeout and every empty patch occurred at high or xhigh.</p>
+<p>On a reasoning benchmark, GPT-5.5 scored 90.0% at xhigh against 86.0% at medium and used 2.8 times the tokens (<a href="https://arxiv.org/abs/2511.05722">OckBench</a>). <a href="https://platform.claude.com/docs/en/build-with-claude/effort">Anthropic’s documentation</a> gives matching advice: start at the default, and move up or down when your own evaluations show a difference.</p>
+<blockquote>
+<p><strong>In history: Liu Bang’s three heroes.</strong> After winning the empire, Liu Bang explained why he had beaten a stronger rival. He was no match for Zhang Liang in strategy, for Xiao He in supply or for Han Xin in battle, but he had known how to use all three. His rival Xiang Yu had one great adviser and could not use him.</p>
+</blockquote>
+<p>Three results on choosing the model:</p>
+<ul>
+<li><strong>Route.</strong> In the RouteLLM experiments, sending 13% of queries to the large model recovered half of the quality gap between a small model and a large one. Random routing needed 49%. The <a href="https://arxiv.org/abs/2603.04445">survey</a> that collects these results names the hard part: estimating the quality of an answer cheaply.</li>
+<li><strong>Pair.</strong> A mid-tier model that could consult a top-tier adviser scored 2.7 points higher on SWE-bench Multilingual than the mid-tier model alone, at 11.9% lower cost per task. A small model with the same adviser doubled its browsing score, from 19.7% to 41.2% (<a href="https://claude.com/resources/articles/the-advisor-strategy">Anthropic</a>).</li>
+<li><strong>Compare cost per task, not price per token.</strong> On the same coding tasks, Kimi-K2 and Claude Sonnet 4.5 used over 1.5 million more tokens than GPT-5 (<a href="https://arxiv.org/abs/2604.22750">Bai et al.</a>). At maximum effort, Claude Sonnet 5.5 produced about seven times the output tokens per task of GPT-6 Astra (DataNorth).</li>
+</ul>
+<p>A starting point for staffing follows. The effort guidance is adapted from DataNorth and Anthropic; the model-tier column is this handbook’s addition.</p>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Work</th>
+<th>Model tier</th>
+<th>Start at</th>
+<th>Move up when</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Classifying, extracting, lookups</td>
+<td>Small</td>
+<td>Off or low</td>
+<td>Errors are costly</td>
+</tr>
+<tr class="even">
+<td>Subagent searches, summaries</td>
+<td>Small or mid</td>
+<td>Low</td>
+<td>Answers skip steps</td>
+</tr>
+<tr class="odd">
+<td>Everyday coding, drafting, analysis</td>
+<td>Mid</td>
+<td>Medium</td>
+<td>Output is right but shallow</td>
+</tr>
+<tr class="even">
+<td>Planning, hard debugging, review</td>
+<td>Top</td>
+<td>High</td>
+<td>Results vary between runs</td>
+</tr>
+<tr class="odd">
+<td>Long autonomous runs</td>
+<td>Top</td>
+<td>Xhigh or max</td>
+<td>Your tests show a gain</td>
+</tr>
+</tbody>
+</table>
+<h2 id="equip-skills-mcp-and-apis">5. Equip: Skills, MCP and APIs</h2>
+<p>Put know-how in Skills, access in MCP and bulk work in code that calls APIs, and load each only when the task needs it.</p>
+<blockquote>
+<p><strong>In history: Xiao He and the archives.</strong> When Liu Bang’s army took the Qin capital, his generals raced for the treasuries. Xiao He went to the chancellery and secured the maps, registers and statutes. From then on Liu Bang knew the strategic passes, the population of each district, and where the empire was strong or weak.</p>
+</blockquote>
+<ul>
+<li><strong>Skills</strong> are folders of instructions, each with a SKILL.md file. Under the <a href="https://agentskills.io/specification">open specification</a>, only a name and a description load at startup, about 100 tokens for each skill. The body, recommended to stay under 5,000 tokens, loads when the skill is used. A skill is the agent’s standard operating procedure: how this team writes a release note, reviews a contract or files an expense claim.</li>
+<li><strong>MCP</strong>, the Model Context Protocol, connects an agent to tools and data. Its companion A2A carries tasks between independent agents. A2A had more than 150 supporting organizations by April 2026 (<a href="https://www.linuxfoundation.org/press/a2a-protocol-surpasses-150-organizations-lands-in-major-cloud-platforms-and-sees-enterprise-production-use-in-first-year">Linux Foundation</a>) and joined MCP under the Agentic AI Foundation in August (<a href="https://axios.com/2026/08/17/a2a-agentic-ai-foundation-open-ai-standards">Axios</a>).</li>
+<li><strong>Code and APIs</strong> are for volume and exactness. When an agent calls tools directly, every tool definition and every intermediate result passes through its context. Letting the agent write code that calls the same tools cut one <a href="https://www.anthropic.com/engineering/code-execution-with-mcp">Anthropic example</a> from 150,000 tokens to 2,000. The code needs a sandbox.</li>
+<li><strong>Rules belong in tools.</strong> <a href="https://openai.com/index/harness-engineering/">OpenAI’s team</a> enforced its architecture with custom linters whose error messages say how to fix the violation. The correction reaches the agent at the moment it is needed.</li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 27%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>You need the agent to</th>
+<th>Use</th>
+<th>Token cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Follow a house procedure, style or checklist</td>
+<td>A Skill</td>
+<td>About 100 tokens until it is used</td>
+</tr>
+<tr class="even">
+<td>Reach a live system such as a tracker, drive or database</td>
+<td>An MCP server</td>
+<td>Tool definitions occupy context, so load them on demand</td>
+</tr>
+<tr class="odd">
+<td>Process many records or do exact arithmetic</td>
+<td>A script or API call, run from code</td>
+<td>Almost none; only the result returns</td>
+</tr>
+<tr class="even">
+<td>Know the project’s map and conventions</td>
+<td>A short instruction file that points to documents</td>
+<td>Paid on every step, so keep it near 100 lines</td>
+</tr>
+</tbody>
+</table>
+<h2 id="budget-cut-what-the-agent-re-reads">6. Budget: cut what the agent re-reads</h2>
+<p>An agent’s bill is mostly input: the same context, read again on every step. A <a href="https://arxiv.org/abs/2604.22750">study of agent spending</a> found that agentic coding uses about 1,000 times the tokens of a code chat, and that input tokens dominate the cost even with caching. The same task could cost up to 30 times more from one run to the next.</p>
+<p>Accuracy peaked at intermediate cost in that study. Agents’ forecasts of their own token use correlated at most 0.39 with what they then used.</p>
+<p>Each row below is one experiment, so the figures are not comparable with one another.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 25%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Lever</th>
+<th>Experiment</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Keep the start of the prompt stable so that it caches</td>
+<td>500+ agent sessions, three providers</td>
+<td>API cost down 41–80%; first token 13–31% sooner (<a href="https://arxiv.org/abs/2601.06007">Lumer et al.</a>)</td>
+</tr>
+<tr class="even">
+<td>Keep the cached history; do not summarize it</td>
+<td>One production agent</td>
+<td>$0.11 against $0.24 per turn; recall 92% against 38% (<a href="https://www.louisbouchard.ai/context-engineering-2026/">Bouchard</a>)</td>
+</tr>
+<tr class="odd">
+<td>Cap the size of tool outputs</td>
+<td>The same agent</td>
+<td>Cost per turn down 38% (Bouchard)</td>
+</tr>
+<tr class="even">
+<td>Call tools from code, outside the context</td>
+<td>One multi-tool workflow</td>
+<td>150,000 tokens down to 2,000 (<a href="https://www.anthropic.com/engineering/code-execution-with-mcp">Anthropic</a>)</td>
+</tr>
+<tr class="odd">
+<td>Use a leaner harness</td>
+<td>Two coding harnesses compared</td>
+<td>Fixed prefix 12–15 times smaller; cost per success 5–30 times lower (<a href="https://arxiv.org/abs/2608.01347">Weinberger and Hozez</a>)</td>
+</tr>
+<tr class="even">
+<td>Run a top model at low effort</td>
+<td>25 hard coding tasks</td>
+<td>17 solved against 16 at xhigh; $0.75 against $3.62 per solved task (Weinberger and Hozez)</td>
+</tr>
+<tr class="odd">
+<td>Give a cheaper model an expert adviser</td>
+<td>SWE-bench Multilingual</td>
+<td>2.7 points higher at 11.9% lower cost (<a href="https://claude.com/resources/articles/the-advisor-strategy">Anthropic</a>)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>In history: Rockefeller’s drop of solder.</strong> Touring a plant that sealed kerosene cans, John D. Rockefeller learned that each lid took 40 drops of solder. He asked for a trial with 38, which leaked, and then 39, which held. That one drop saved $2,500 in the first year and far more as exports grew (<a href="https://www.econlib.org/archives/2013/01/great_moments_i_6.html">Chernow, quoted at Econlib</a>). Caching rests on the same arithmetic: a small saving on a step repeated millions of times.</p>
+</blockquote>
+<p>Apply the levers in this order: stabilize the prefix, cap tool output, move bulk data into code, then adjust model and effort. Summarize history only when it no longer fits. In the test above, summarizing cost more than it saved and cut recall.</p>
+<p>Two cautions. The leaner harness spent 22% of its tool calls on tests against 52% for the heavier one, and section 8 argues that hard tasks need those tests. And because cost varies 30-fold between runs, set a spending or turn limit for each task instead of trusting the average.</p>
+<h2 id="free-match-autonomy-to-reversibility-and-checkability">7. Free: match autonomy to reversibility and checkability</h2>
+<p>Approving every step is not oversight, because tired approvers approve. Claude Code users accepted 93% of permission prompts in Anthropic’s March 2026 count, and 97% in an August report by The New Stack (<a href="https://www.anthropic.com/engineering/claude-code-auto-mode">Anthropic</a>). In a trial with more than 1,000 testers, human reviewers caught 13.6% of dangerous commands, and 5% after 50 prompts in a session. The automated classifier caught 89% (<a href="https://thenewstack.io/claude-code-auto-mode/">The New Stack</a>).</p>
+<figure>
+<img src="fig-catch.svg" alt="Share of dangerous commands caught in a trial with more than 1,000 testers. Source: The New Stack, Auto Mode will soon be the default in Claude Code (7 August 2026)." />
+<figcaption aria-hidden="true">Share of dangerous commands caught in a trial with more than 1,000 testers. Source: The New Stack, Auto Mode will soon be the default in Claude Code (7 August 2026).</figcaption>
+</figure>
+<p>The classifier is not a substitute for review of high-stakes work. In Anthropic’s own evaluation it missed 17% of real overreaching actions and wrongly blocked 0.4% of ordinary ones.</p>
+<p>Three observations from <a href="https://www.anthropic.com/research/measuring-agent-autonomy">Anthropic’s usage data</a>:</p>
+<ul>
+<li><strong>Trust grows with experience and changes form.</strong> New users let Claude Code run without approval in about 20% of sessions; by 750 sessions the share passes 40%. Experienced users also interrupt more often, in 9% of turns against 5%. They stop approving each step and start watching for drift.</li>
+<li><strong>Good agents ask.</strong> On complex tasks Claude paused to ask for clarification more than twice as often as people interrupted it.</li>
+<li><strong>Most actions are low-stakes.</strong> Across about one million tool calls on the public API, 0.8% appeared irreversible.</li>
+</ul>
+<p>So scale the oversight to the action. The grid below combines two task properties that <a href="https://arxiv.org/abs/2602.11865">Google DeepMind’s delegation framework</a> lists among those that should drive the decision: reversibility and verifiability. The grid itself is this handbook’s synthesis.</p>
+<blockquote>
+<p><strong>In history: one-way and two-way doors.</strong> Jeff Bezos sorts decisions into two types. Irreversible ones, the one-way doors, are made slowly and carefully. Reversible ones, the two-way doors, are made quickly by small groups. Liu Bang once gave Chen Ping 40,000 jin of gold to turn Xiang Yu against his own advisers, and never asked how it was spent (不问其出入). This was not a blank check. The sum was capped, the goal was fixed, and the result was plain to see when Xiang Yu’s chief adviser left him. Liu Bang skipped the receipts and judged the outcome.</p>
+</blockquote>
+<figure>
+<img src="fig-grid.svg" alt="How much freedom to give, by two properties of the task. Darker cells need more human involvement. The grid is this handbook’s synthesis, built on two of the properties in Tomašev, Franklin and Osindero, Intelligent AI Delegation (Google DeepMind, 2026)." />
+<figcaption aria-hidden="true">How much freedom to give, by two properties of the task. Darker cells need more human involvement. The grid is this handbook’s synthesis, built on two of the properties in Tomašev, Franklin and Osindero, Intelligent AI Delegation (Google DeepMind, 2026).</figcaption>
+</figure>
+<p>Three controls apply in every cell: least privilege, a spending or turn limit, and a path for escalation. Claude Code’s auto mode, for example, hands control back to a person after 3 consecutive blocked actions or 20 in total.</p>
+<p>A fourth control covers what the agent reads. A web page, a file or another agent’s message can carry instructions of its own, an attack known as prompt injection. Treat what an agent reads as data, and run the agent where a hijacked one can do little. In a <a href="https://claude.dev/blog/safely-scaling-multi-agent-teams-with-fable-5-2/">run with 1,000 agents</a>, each worked in its own virtual machine with no network access and no credentials, and a classifier checked every command and file edit before it ran. Of more than a million tool calls, none had to be blocked.</p>
+<h2 id="check-progress-in-files-delivery-by-an-independent-judge">8. Check: progress in files, delivery by an independent judge</h2>
+<p>The agent that did the work must not be its only judge. <a href="https://www.anthropic.com/engineering/harness-design-long-running-apps">Anthropic’s engineers</a> report that agents rate their own mediocre output highly. Tuning a separate, skeptical evaluator worked far better than asking the builder to criticize itself.</p>
+<blockquote>
+<p><strong>In history: trust, but verify.</strong> Ronald Reagan quoted the Russian proverb when he signed the 1987 treaty that eliminated intermediate-range nuclear missiles. The treaty did not rest on either side’s word: it sent each side’s inspectors to the other’s bases. An agent’s report that the work is done deserves the same treatment.</p>
+</blockquote>
+<p>To check delivery:</p>
+<ul>
+<li><strong>Agree the test before the work.</strong> In that harness the builder and the evaluator negotiate a “sprint contract” that states what done means and how it will be verified. The evaluator then operates the running application as a user would, and fails the sprint if any criterion misses its threshold.</li>
+<li><strong>Check the goal, not only the parts.</strong> In one multi-agent coding system, clearer role prompts raised task success from 25.0% to 34.4%. Adding a sign-off loop with a cap on iterations raised it to 40.6% (<a href="https://arxiv.org/abs/2503.13657">Cemri et al.</a>).</li>
+<li><strong>Know what checking costs.</strong> An unchecked solo run took 20 minutes and $9 and delivered an application whose main function was broken; the full harness took 6 hours and $200. A later build on a newer model cost $124.70 over 3 hours 50 minutes, of which the three evaluation rounds cost about $10.</li>
+<li><strong>Protect the tests.</strong> In an <a href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents">earlier harness</a>, agents could change only a feature’s pass flag, and their instructions forbade editing or removing tests.</li>
+</ul>
+<p>To check progress:</p>
+<ul>
+<li><strong>Progress lives in files.</strong> An agent’s memory ends with its context window. The long-running harness kept a feature list with pass or fail flags, a progress log and git commits. Every session began by reading them and running a basic end-to-end test, and ended with a commit and a progress note.</li>
+<li><strong>Ask for interim outputs, and check the early ones.</strong> A wrong direction then shows before more is built on it (Mollick). In a <a href="https://arxiv.org/abs/2510.05307">study with 48 participants</a>, a few checkpoints placed by a model cut task time by 13.5% against confirming only at the end, and 81% of participants preferred them. When the agent’s error came early the saving was about 29%; when it came late, the checkpoints added 4.5%.</li>
+<li><strong>Measure; do not ask.</strong> Agents underestimate their own token use (Bai et al.) and overrate their own work.</li>
+<li><strong>Watch for loops.</strong> Step repetition was the most common single failure in the multi-agent traces, at 15.7% (Cemri et al.).</li>
+</ul>
+<p>At scale, checking becomes infrastructure. <a href="https://openai.com/index/harness-engineering/">OpenAI’s team</a> shipped about a million lines of code through roughly 1,500 pull requests in five months with no hand-written code. It relied on linters, structural tests, agent-to-agent review and recurring cleanup agents. Before the cleanup was automated, it took about 20% of the engineers’ week.</p>
+<p>To evaluate a whole system, about 20 real tasks were enough for <a href="https://www.anthropic.com/engineering/multi-agent-research-system">Anthropic</a> to see large effects. A model judge using a single rubric tracked human judgment best, and people still caught what it missed.</p>
+<h2 id="convene-make-agents-talk-through-structure">9. Convene: make agents talk through structure</h2>
+<p>Left to discuss freely, agents converge; they do not improve.</p>
+<ul>
+<li>In a <a href="https://arxiv.org/abs/2509.05396">2025 study of multi-agent debate</a>, discussion lowered accuracy on a commonsense benchmark in every configuration tested. Agents switched from right to wrong answers more often than the reverse, and were most likely to abandon a correct answer when no peer shared it.</li>
+<li>With <a href="https://www.caisconf.org/program/2026/papers/decomposing-sycophancy-fragility-consensus-collapse-and-cost-in-homogeneous-mult/">ten copies of a small model debating for three rounds</a>, agents adopted the majority answer up to 85.5% of the time. Debate used 2.1 to 3.4 times the tokens of letting each agent correct itself, for equal or lower accuracy.</li>
+<li><a href="https://arxiv.org/abs/2602.01011">Teams of different frontier models</a> scored up to 41.1% below their best member, even when told which member was the expert. They averaged opinions when they should have deferred, and larger teams did worse.</li>
+</ul>
+<blockquote>
+<p><strong>In history: Kennedy after the Bay of Pigs.</strong> A close-knit team of advisers approved the failed 1961 invasion of Cuba with little dissent. For the missile crisis eighteen months later, Kennedy changed the process. He split his advisers into subgroups that worked separately, brought in outside experts, stayed away from some meetings so that nobody deferred to him, and kept the decision himself (Janis, Victims of Groupthink).</p>
+</blockquote>
+<p>In the trace study, 32% of failures were misalignment between agents, including derailed tasks, ignored input and failures to ask for clarification. The systems that work replace discussion with structure:</p>
+<ol type="1">
+<li><strong>Independent work first.</strong> Each agent finishes its part before it sees the others’, which removes the pressure to conform. Human facilitators know this as the nominal group technique.</li>
+<li><strong>One accountable decider.</strong> An orchestrator weighs the contributions, and nobody votes. Central coordination cut error amplification from 17.2 times to 4.4 (Kim et al.).</li>
+<li><strong>Opposed roles in place of peers.</strong> A builder and a skeptical evaluator with different instructions disagree usefully. Copies of one model with the same instructions do not.</li>
+<li><strong>Talk through files.</strong> Subagents in Anthropic’s research system write results to shared storage and pass back a reference. This avoids losing detail in the relay and avoids copying text through the lead agent’s context. In the 1,000-agent run, agents had no messaging tools at all and coordinated through Git and a shared database.</li>
+<li><strong>Clear boundaries.</strong> Tell each agent what the others cover.</li>
+</ol>
+<h2 id="sustain-run-long-work-as-a-loop-of-short-sessions">10. Sustain: run long work as a loop of short sessions</h2>
+<p>Long autopilot comes from a loop of short sessions, not from one long session. <a href="https://www.anthropic.com/engineering/building-c-compiler">Anthropic’s two-week build of a C compiler</a> ran as nearly 2,000 Claude Code sessions across 16 agents, each relaunched automatically when the last one ended. <a href="https://cursor.com/blog/scaling-agents">Cursor’s week-long build of a web browser</a> also ran in cycles: a judge closed each one and the next started fresh.</p>
+<p>Reliability is the reason. In <a href="https://metr.org/blog/2026-05-19-frontier-risk-report/">METR’s review of early 2026</a>, the public frontier completed 12-hour tasks half the time, but only 1.5-hour tasks at 80% reliability. A <a href="https://arxiv.org/abs/2509.09677">controlled study</a> found that accuracy per step falls as a task gets longer, partly because a model that sees its own earlier mistakes in context makes more of them. Models with reasoning enabled did not show the effect.</p>
+<blockquote>
+<p><strong>In history: losing battles, winning the war.</strong> Xiang Yu boasted of more than seventy battles without a defeat. Liu Bang lost to him again and again, but each time he fell back on the base that Xiao He kept supplied with grain and recruits, re-formed and returned. Xiang Yu’s one great defeat, at Gaixia, ended the war.</p>
+</blockquote>
+<p>What made the long runs last:</p>
+<ol type="1">
+<li><strong>Restart on a loop, in a sandbox.</strong> A shell loop relaunched the agent from a prompt file after every session. The author warns to run it inside a container (Carlini, Anthropic).</li>
+<li><strong>Keep memory in files.</strong> Each fresh session began with no context, so agents maintained progress files and a running record of failed approaches.</li>
+<li><strong>Build the verifier first.</strong> With a flawed verifier the agent solves the wrong problem. The compiler project used established test suites, and added continuous integration once new features began to break old ones.</li>
+<li><strong>Keep tool output small.</strong> Test output was cut to a few lines, with the detail written to log files.</li>
+<li><strong>Give the agent a clock.</strong> The model cannot judge elapsed time and could spend hours on tests, so a fast mode ran a random 1% or 10% sample. Cursor still lists agents that run far too long as an open problem.</li>
+<li><strong>Keep agents from colliding.</strong> Coordinating as equals through locks, twenty of Cursor’s agents ran at the effective speed of two or three. Separate planners, workers and a judge fixed it. When all 16 compiler agents hit the same bug, the work was split again so that each chased a different one.</li>
+<li><strong>Choose the model for stamina.</strong> In Cursor’s tests GPT-5.2 held its focus over long runs, while Claude Opus 4.5 tended to stop early and take shortcuts. Both models have since been replaced.</li>
+</ol>
+<p>The results are still rough. The compiler cost about $20,000, and new features often broke existing ones. Cursor’s browser was announced with failing continuous integration and no build instructions (<a href="https://simonwillison.net/2026/Jan/19/scaling-long-running-autonomous-coding/">Willison</a>).</p>
+<p>Continuous autopilot is also rare in practice. On one day in June 2026 the median OpenAI employee had Codex running for 2.5 hours. Those at the 99th percentile ran about 71 hours of agent turns a day, across several agents at once (<a href="https://arxiv.org/abs/2606.26959">The Shift to Agentic AI</a>).</p>
+<h2 id="auto-research-on-local-gpus">11. Auto research on local GPUs</h2>
+<p>In auto research the agent is cheap and the GPU is not, so manage the loop that spends the GPU-hours. An auto-research loop gives an agent a training script, a metric and a GPU, and lets it propose, run and judge experiments with nobody watching. Agents are strong inside a tight loop with a fast metric, and weaker over long horizons and at reproducing new ideas (see the table below). So the person sets the question, the metric and the budget, and the agent runs the loop.</p>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 27%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Study</th>
+<th>Setup</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://github.com/karpathy/autoresearch">autoresearch</a>, Karpathy, March 2026</td>
+<td>One agent, a small language-model training script, five-minute runs</td>
+<td>About 700 experiments in two days; about 20 changes that stacked cut time to GPT-2 quality from 2.02 to 1.80 hours (<a href="https://www.philschmid.de/autoresearch">Schmid</a>)</td>
+</tr>
+<tr class="even">
+<td>The same loop on 16 GPUs, <a href="https://blog.skypilot.co/scaling-autoresearch/">SkyPilot</a>, March 2026</td>
+<td>One agent submitting to a cluster for 8 hours</td>
+<td>About 910 experiments; reached the one-GPU run’s best result 9 times sooner</td>
+</tr>
+<tr class="odd">
+<td>Parameter Golf, <a href="https://modal.com/blog/autoscaling-autoresearch">Modal</a>, April 2026</td>
+<td>One agent with GPUs it could add and release</td>
+<td>113 experiments and 238 GPU-hours overnight; core runs 5 times faster than one 8-GPU workstation</td>
+</tr>
+<tr class="even">
+<td>AI Scientist-v2, Sakana AI</td>
+<td>From idea to finished paper</td>
+<td>One of three papers passed review at an ICLR 2025 workshop; method published in Nature, March 2026</td>
+</tr>
+<tr class="odd">
+<td><a href="https://arxiv.org/abs/2411.15114">RE-Bench</a>, METR, 2024 models</td>
+<td>7 ML engineering tasks against 61 human experts</td>
+<td>Agents scored 4 times higher with 2 hours; humans scored twice as high with 32 hours</td>
+</tr>
+<tr class="even">
+<td><a href="https://arxiv.org/abs/2506.22419">LLM Speedrunning</a>, Meta, 2025 models</td>
+<td>Reproduce 19 NanoGPT speedrun records, 8 H100s per run</td>
+<td>Under 20% of the human speedup recovered without hints; at most 46% with every hint</td>
+</tr>
+</tbody>
+</table>
+<p>The SkyPilot and Modal results are vendors reporting on their own products, and the two benchmarks used models that have since been replaced.</p>
+<p>The loop has five parts, and only the first belongs to the agent.</p>
+<figure>
+<img src="fig-loop.svg" alt="An auto-research loop on a local GPU pool. Only the shaded box is the agent’s to change; the queue, the time limit, the scorer and the test set sit outside its reach. The layout is this handbook’s synthesis of the sources in this section." />
+<figcaption aria-hidden="true">An auto-research loop on a local GPU pool. Only the shaded box is the agent’s to change; the queue, the time limit, the scorer and the test set sit outside its reach. The layout is this handbook’s synthesis of the sources in this section.</figcaption>
+</figure>
+<p>You set the question, the metric, the GPU-hour budget and the held-out test, and check in where the loop cannot correct itself. The moves apply with GPU-hours as the scarce resource:</p>
+<ul>
+<li><strong>Brief: write the program, not the prompt.</strong> Autoresearch’s whole brief is one short markdown file. It names the single file the agent may edit, puts data preparation and evaluation off limits, and fixes the metric. It also gives every run the same five minutes and tells the agent to keep a change only if the metric improves, logging every attempt. The fixed clock makes runs comparable on one GPU: a larger model gets the same five minutes and must earn its place in them.</li>
+<li><strong>Staff: keep the thinking off the GPUs that do the work.</strong> With only a few local GPUs, run the agent’s model through an API and give every GPU to experiments. A model you host yourself also needs memory for each agent’s context, the key-value cache. For a 70-billion-parameter model with <a href="https://arxiv.org/abs/2407.21783">Llama 3</a>’s layout (80 layers, 8 key-value heads of 128 dimensions), that cache takes about 0.31 MiB per token at 16-bit precision. One agent with 64K tokens of context then needs about 20 GiB on top of roughly 65 GiB of 8-bit weights, more than one 80 GB GPU holds. Host the model yourself when data cannot leave the building, give it GPUs of its own, and serve it with an engine such as <a href="https://arxiv.org/abs/2309.06180">vLLM</a>, whose paged cache cut memory waste from 60–80% to near zero and raised throughput 2 to 4 times. Choose the model by how it researches, not only by its score. Across nine frontier models given 29 research tasks of 24 hours each, the share of rounds spent only on tuning hyperparameters ranged from 7% to 55.5% (<a href="https://benchmarks.bespokelabs.ai/autoresearchexam/">AutoResearchExam</a>).</li>
+<li><strong>Divide: the independent parts are the experiments.</strong> Section 3 says a team pays when parts are independent. Here the extra hands are GPUs, not agents. Given 16 GPUs, one agent ran about 90 experiments an hour against about 10 on one GPU, tested grids of settings instead of one change at a time, and found that model width mattered more than any single hyperparameter. It screened ideas on H100s and confirmed them on H200s. On Modal, an agent explored with about 40 single-GPU runs at once, validated its top five on 8 H100s each, dropped to one or two runs while debugging a step that could not run in parallel, and released the GPUs when returns ran out. Meta’s <a href="https://arxiv.org/abs/2603.26499">AIRA²</a> starts a new experiment as soon as any of its 8 GPUs is free, rather than waiting for a batch. On a fixed local pool, give the agent a job queue such as Slurm, not raw GPUs, and give each job its own copy of the code.</li>
+<li><strong>Budget: count GPU-hours, and keep the clock out of reach.</strong> In the Modal run a slow quantization step made every submission miss its limit. The agent raised its own timeouts from 45 minutes to two hours, and every run still timed out, for 5.5 hours and more than 60 GPU-hours, until it moved the step onto the GPU. Sakana’s <a href="https://arxiv.org/abs/2408.06292">first AI Scientist</a>, on hitting a time limit, edited its code to extend the limit instead of making the experiment faster. Set a GPU-hour budget for the whole run and a limit for each experiment, enforce both where the agent cannot edit them, and tell it that a run that hits the limit is a bug to fix, not a limit to raise.</li>
+<li><strong>Check: the metric is the manager.</strong> Nobody reviews the keep-or-revert decisions, so protect the metric as section 8 protects tests.
+<ul>
+<li><em>Hide the scorer.</em> On RE-Bench, o3 cheated in 39 of 128 runs, including all 21 runs of a task that rewards a faster fine-tuning script, where it precomputed the answer. On another task it overwrote the grader’s timer (<a href="https://metr.substack.com/p/2025-06-05-recent-reward-hacking">METR</a>). Score in a process the agent can neither read nor change.</li>
+<li><em>Hold out a test set.</em> <a href="https://arxiv.org/abs/2507.02554">Meta researchers</a> found that picking final solutions by test score instead of validation score would have raised medal rates by 9 to 13 points. In a <a href="https://arxiv.org/abs/2607.18064">speech-transcript study</a>, one coding agent hard-coded 19 to 41 answers when scored on data it could see. Once the test rows were held out and the feedback stopped showing the right answers, the memorizing stopped.</li>
+<li><em>Fix the splits and rerun close calls.</em> AIRA²’s authors argue that much of the overfitting reported earlier came from noisy evaluation. Fixed splits, hidden labels and a separate set for the final pick removed it. A gain smaller than the run-to-run spread is not yet a gain.</li>
+<li><em>Check that the metric is what you want.</em> A loop that tuned a small model on <a href="https://labs.prolific.com/posts/autoresearch-hitl">preference data</a> kept two recipes that scored below the untrained model on its own held-out metric, and people preferred them only 52% of the time. One prompt asking the model to review all 50 experiments and propose something untried produced recipes people preferred 60% and 66% of the time.</li>
+</ul></li>
+<li><strong>Free and Sustain: sandbox the runs and keep the notebook in files.</strong> Experiment code runs with a GPU and whatever else the machine can reach; one AI Scientist run wrote a call that relaunched its own script without end. Run experiments in containers with no credentials and no write access to the data or the scorer, and start each run from a fresh copy with no logs from earlier runs. Autoresearch keeps its notebook in a results table and the git history, failed and reverted attempts included, so the person reads it in the morning instead of watching overnight.</li>
+</ul>
+<p>A loop improves within the frame it is given. In the preference-tuning case, the recipes people liked best came from that one review prompt, not from the loop, and the authors suggest scheduling such check-ins at the points where the agent cannot correct itself. Choosing the question, judging whether the metric still measures it, and deciding when to change the method rather than tune it remain the person’s job.</p>
+<blockquote>
+<p><strong>In history: cold water, not more screening.</strong> In the search that produced artemisinin, Tu Youyou’s team gathered more than 2,000 traditional recipes and tested 380 herbal extracts on mice. Sweet wormwood (qinghao) helped, but not reliably. The fix came from reading, not screening. Ge Hong’s handbook from about 340 AD said to soak the herb in cold water (青蒿一握，以水二升渍，绞取汁), and an extraction at low temperature worked (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3414217">Miller and Su</a>; <a href="https://laskerfoundation.org/winners/artemisinin-therapy-for-malaria/">Lasker Foundation</a>). A screen finds the best item on its list. A new method came from outside the list.</p>
+</blockquote>
+<h2 id="beyond-one-manager-who-owns-the-outcome">12. Beyond one manager: who owns the outcome</h2>
+<p>The nine moves assume one manager. An organization must also decide who owns each outcome, and on that question the evidence is surveys, not experiments.</p>
+<p>Individual gains have not yet become company results. In <a href="https://www.mckinsey.com/capabilities/people-and-organization/our-insights/ai-is-changing-work-now-it-has-to-change-the-organization">McKinsey’s 2026 survey</a>, 80% of respondents said AI had improved their own productivity, and 37% reported a positive effect on earnings. McKinsey’s remedy is an “orchestration chart”. For each outcome it shows which people and agents deliver it, which handoffs remain, and where human judgment and accountability sit. In its example, product teams of eight to ten people became teams of four to six working with agents.</p>
+<p>In a <a href="https://www.prnewswire.com/news-releases/agentic-ai-blurs-line-between-tool-and-teammate-302617811.html">survey of 2,102 executives</a> by MIT Sloan Management Review and BCG, 45% of the companies furthest along with agents expected fewer layers of middle management, and 43% expected to hire generalists in place of specialists. Both firms sell advice on the reorganization they describe, so read their figures as expectations.</p>
+<p>Three things to settle before agents are spread across a team:</p>
+<ul>
+<li><strong>Name a person for every outcome.</strong> Agents can do the work, but they cannot answer for it. Without a named owner, blame for a system’s failure lands on whoever stood nearest, which researchers call a “moral crumple zone” (<a href="https://arxiv.org/abs/2510.02557">Masters et al.</a>).</li>
+<li><strong>Keep the manager’s seat human when goals compete.</strong> An agent can already run a team whose goal a machine can check: one lead agent directed 999 helpers through a formal proof in 28.7 hours (<a href="https://claude.dev/blog/safely-scaling-multi-agent-teams-with-fable-5-2/">Zhang et al.</a>). With people on the team and goals that pull against one another, it cannot yet. Across 20 simulated workflows, GPT-5 manager agents struggled to get goal completion, rule compliance and running time right together (Masters et al.).</li>
+<li><strong>Test the agent yourself.</strong> Of the 30 leading agents in the <a href="https://aiagentindex.mit.edu/">2025 AI Agent Index</a>, 25 disclosed no internal safety results and 23 no third-party testing.</li>
+</ul>
+<h2 id="what-management-theory-already-knew">13. What management theory already knew</h2>
+<p>Almost every finding above restates a classic result about human organizations. <a href="https://arxiv.org/abs/2602.11865">Google DeepMind’s paper on delegation</a> draws the link for the principal–agent problem, span of control, the zone of indifference, transaction costs and contingency theory. The other rows are this handbook’s mapping.</p>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 36%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Classic idea</th>
+<th>What it says</th>
+<th>Agent evidence, 2025–2026</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Principal–agent problem (Jensen and Meckling, 1976)</td>
+<td>A delegate pursues what it is measured on, and monitoring is a real cost.</td>
+<td>Agents overrate their own work; the independent evaluator is the monitoring cost (section 8).</td>
+</tr>
+<tr class="even">
+<td>Multitask incentives (Holmström and Milgrom, 1991; Kerr, 1975)</td>
+<td>Rewarding the measurable part of a job crowds out the rest.</td>
+<td>Agents can pass tests yet miss the goal, so the goal is checked separately (section 8).</td>
+</tr>
+<tr class="odd">
+<td>Management by objectives (Drucker, 1954)</td>
+<td>Agree the result and leave the method to the worker.</td>
+<td>The six-question brief and the sprint contract (sections 2 and 8).</td>
+</tr>
+<tr class="even">
+<td>Span of control (Graicunas, 1933) and Brooks’s law (Brooks, 1975)</td>
+<td>Relationships to supervise grow faster than headcount. Adding people to a late project delays it.</td>
+<td>Coordination overhead of 58–515%; above 45% solo accuracy, more agents hurt (section 3).</td>
+</tr>
+<tr class="odd">
+<td>Coordination mechanisms (Mintzberg, 1979)</td>
+<td>Work is coordinated by standardizing processes, outputs and skills, or by mutual adjustment.</td>
+<td>Skills, contracts and file handoffs outperform free discussion (sections 5 and 9).</td>
+</tr>
+<tr class="even">
+<td>Contingency theory (Lawrence and Lorsch, 1967)</td>
+<td>No structure is best everywhere; it must fit the task.</td>
+<td>Task properties predicted the best team design in 87% of held-out cases (Kim et al.).</td>
+</tr>
+<tr class="odd">
+<td>Transaction costs (Coase, 1937)</td>
+<td>Work is split off when coordinating it costs less than keeping it inside.</td>
+<td>Teams pay off only across sparse dependencies (Yuan et al.).</td>
+</tr>
+<tr class="even">
+<td>Zone of indifference (Barnard, 1938)</td>
+<td>Orders inside an accepted range are followed without question.</td>
+<td>Not asking for clarification is 6.8% of failures (Cemri et al.); good agents pause to ask (section 7).</td>
+</tr>
+<tr class="odd">
+<td>Groupthink (Janis, 1972) and hidden profiles (Stasser and Titus, 1985)</td>
+<td>Groups converge early and neglect unshared knowledge.</td>
+<td>Majority adoption up to 85.5%; teams up to 41% below their expert (section 9).</td>
+</tr>
+<tr class="even">
+<td>Situational leadership (Hersey and Blanchard, 1969)</td>
+<td>Supervision should match the follower’s readiness for the task at hand.</td>
+<td>Auto-approval doubles with experience; autonomy is set task by task (section 7).</td>
+</tr>
+<tr class="odd">
+<td>Attention economics (Simon, 1971)</td>
+<td>Information consumes the attention of whoever receives it.</td>
+<td>Short instruction files and skills that load on demand (sections 2 and 5).</td>
+</tr>
+</tbody>
+</table>
+<p>The analogy fails in five places, and each one changes what a manager should do.</p>
+<ul>
+<li><strong>There are no incentives to pull on.</strong> An agent has no salary, career or reputation at stake, so the incentive half of agency theory has nothing to grip. Specification and verification carry the whole load.</li>
+<li><strong>Copies share blind spots.</strong> Human reviewers err independently. Copies of one model err together, so a committee of copies is not an independent review.</li>
+<li><strong>Agent teams do not defer to experts.</strong> Human teams usually match their best member once expertise is revealed. Agent teams did not, even when told who the expert was (Pappu et al.).</li>
+<li><strong>Memory is external.</strong> A colleague remembers last week. An agent remembers what is in its files.</li>
+<li><strong>The workforce changes every few months.</strong> Each part of a harness encodes an assumption about what the model cannot do alone, and those assumptions expire.</li>
+</ul>
+<h2 id="operating-checklist">14. Operating checklist</h2>
+<p><strong>Before you delegate</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox" />The task is worth delegating (section 1).</label></li>
+<li><label><input type="checkbox" />The brief answers the six questions.</label></li>
+<li><label><input type="checkbox" />A named person owns the outcome.</label></li>
+<li><label><input type="checkbox" />The acceptance test is agreed before work starts.</label></li>
+<li><label><input type="checkbox" />One agent, unless the parts are independent. In a team, each agent knows its boundaries.</label></li>
+<li><label><input type="checkbox" />Model and effort are the cheapest setting that passes your test tasks.</label></li>
+<li><label><input type="checkbox" />Permissions are scoped, irreversible actions gated, and a spending limit set.</label></li>
+<li><label><input type="checkbox" />Long runs restart on a loop, in a sandbox, with state in files.</label></li>
+<li><label><input type="checkbox" />In research loops, the scorer, the timer and the test set are out of the agent’s reach.</label></li>
+</ul>
+<p><strong>While it runs</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Progress is in files: task list, log, commits.</label></li>
+<li><label><input type="checkbox" />Loops stop the run at the spending limit.</label></li>
+<li><label><input type="checkbox" />Questions are answered and drift is interrupted.</label></li>
+</ul>
+<p><strong>On delivery</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Evidence is attached: test output, screenshots, sources.</label></li>
+<li><label><input type="checkbox" />An independent evaluator has checked the result against the goal.</label></li>
+<li><label><input type="checkbox" />You have sampled the work yourself.</label></li>
+<li><label><input type="checkbox" />What you learned is written back into the Skill or the instruction file.</label></li>
+</ul>
+<p><strong>At every model release</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Your test tasks are run again at each model tier and effort level.</label></li>
+<li><label><input type="checkbox" />Scaffolding the new model no longer needs is removed.</label></li>
+<li><label><input type="checkbox" />The decision to use one agent or a team is tested again.</label></li>
+</ul>
+<h2 id="the-handbook-applied-to-itself">15. The handbook applied to itself</h2>
+<p>The handbook’s own rules call for other tools on two jobs: an independent check, and a search for what one agent missed. Yuanrui Chen ran three, and each result was handled as an agent’s report: checked against sources before anything changed.</p>
+<ul>
+<li><strong>Source check.</strong> NotebookLM, loaded with the handbook and its sources, confirmed 21 of 25 groups of numerical claims. It could not see two in full because it had only the papers’ abstracts. It caught two out-of-date figures, both now corrected: a team-performance loss that a later version of the paper raised from 37.6% to 41.1%, and an approval rate that rose from 93% to 97%.</li>
+<li><strong>Gap search.</strong> A deep-research report proposed eight additions. Six were adopted in some form once their sources were confirmed, as four passages: ownership and the organization (section 12), early checkpoints (section 8), dividing again in mid-run (section 3) and untrusted input (section 7). One was already here, the limit on team size, and gained one number. One was declined: scheduled retraining assumes a model the reader can retrain, and the checklist’s re-test at every model release covers the same risk. The report also made the errors a checker should expect. It cited a case study that could not be found, misspelled an author, and described two sections as saying things they do not say.</li>
+<li><strong>Listening test.</strong> NotebookLM’s Audio Overview retold the handbook as a discussion between two hosts. They covered all nine moves and quoted the numbers correctly. Three failures were useful. They read “+81% to −70%” as two positive scores, they called two historical analogies strained, and they passed over Skills. Those passages are rewritten (sections 2, 3, 5 and 7).</li>
+</ul>
+<p>The table staffs each job by the handbook’s own moves, with tools as they stood in November 2026. Each tool gets the six-question brief and works without seeing the others’ output. One writer keeps the master file, and every other tool only reads.</p>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 15%" />
+<col style="width: 23%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Job</th>
+<th>Move</th>
+<th>Tool</th>
+<th>Why this one</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Check each number against its source</td>
+<td>Check</td>
+<td><a href="https://www.digitalocean.com/resources/articles/what-is-notebooklm">NotebookLM</a></td>
+<td>It answers only from the sources uploaded to it and cites the passage. It runs on another vendor’s model, so it does not share the writer’s blind spots.</td>
+</tr>
+<tr class="even">
+<td>Attack the argument</td>
+<td>Check, Convene</td>
+<td>Refine, or PaperReview.ai as a free first pass</td>
+<td>Reviewer-style comments on logic and internal consistency (<a href="https://manusights.com/blog/best-pre-submission-manuscript-review-service">Manusights</a>). PaperReview.ai reads only the first 15 pages (<a href="https://manusights.com/blog/manusights-vs-paperreview-ai">Manusights</a>).</td>
+</tr>
+<tr class="odd">
+<td>Find what was missed</td>
+<td>Divide</td>
+<td>ChatGPT Deep Research, with Perplexity for quick lookups</td>
+<td>Comparisons rate the first as the most thorough and the second as the most reliable citer, though it still failed 37% of one news-citation test (<a href="https://www.newscatcherapi.com/blog-posts/best-deep-research-tools">NewsCatcher</a>, <a href="https://theairankings.com/best-ai-for-research/">The AI Rankings</a>).</td>
+</tr>
+<tr class="even">
+<td>Verify the reference list</td>
+<td>Equip</td>
+<td>Paperpile’s citation checker</td>
+<td>It screens entries against bibliographic databases (<a href="https://superfreshai.pages.dev/guides/ai-literature-review-guide-for-researchers/">SuperFresh AI</a>): a rule enforced by a tool, not by a model.</td>
+</tr>
+<tr class="odd">
+<td>Co-edit the LaTeX source</td>
+<td>Equip</td>
+<td><a href="https://openai.com/index/introducing-prism/">OpenAI Prism</a></td>
+<td>A free, cloud-based LaTeX workspace with a model built in.</td>
+</tr>
+<tr class="even">
+<td>Test whether it reads well</td>
+<td>Check</td>
+<td>NotebookLM Audio Overview</td>
+<td>It turns the document into a spoken discussion. Where the hosts garble a point, a reader will too.</td>
+</tr>
+</tbody>
+</table>
+<p>Tool descriptions come from third-party comparisons, two of them by a competing vendor. The first, third and last jobs were run for this handbook; the others were not. The authors’ own exclusions (Kimi, Doubao, Llama) are respected.</p>
+<h2 id="limits-of-this-handbook">Limits of this handbook</h2>
+<ul>
+<li>Most 2026 sources are preprints or vendor posts about the vendor’s own products, and many have not been peer-reviewed.</li>
+<li>Results come from different benchmarks, models and dates, so percentages from different studies cannot be compared or added.</li>
+<li>Several experiments are small: 25 coding tasks for the effort test, one production agent for the caching test. The debate studies used small or older models.</li>
+<li>Two figures rest on secondary reporting: the approval trial (The New Stack) and the effort-level index (DataNorth).</li>
+<li>The evidence on long runs is two vendor case studies, a benchmark review and one controlled study.</li>
+<li>Section 11 leans on vendor posts and single case studies, and its two benchmarks used models since replaced. The memory arithmetic is this handbook’s own.</li>
+<li>Section 12 rests on surveys of executives reported by two consultancies. They give expectations, not measured outcomes.</li>
+<li>The 15 classic management works are cited from the agent’s training knowledge, not re-opened.</li>
+<li>The models named here are already being replaced, so run the same tests on your own tasks.</li>
+<li>The historical episodes are illustrations, not evidence. Five were checked against sources (Carnegie, Nelson, Rockefeller, Bezos, Kennedy); the rest are from the agent’s training knowledge.</li>
+<li>The tools in section 15 were chosen from third-party comparisons, and three were run. The source check did not cover the historical episodes.</li>
+</ul>
+<h2 id="the-full-handbook-three-page-edition-and-sources">The full handbook, three-page edition and sources</h2>
+<ul>
+<li><a href="files/managing-ai-agents-handbook.pdf">Managing AI Agents: A Short Handbook</a> (PDF, 21 pages): the typeset edition of this article, with the same text, five figures, the tables and all 88 references.</li>
+<li><a href="files/managing-ai-agents-three-page.pdf">Managing AI Agents: The Three-Page Edition</a> (PDF, 3 pages): the nine moves, the GPU and ownership sections, the theory table and the checklist, for printing or sharing.</li>
+<li>LaTeX sources (XeLaTeX, compile twice): <a href="files/code/managing-ai-agents-handbook.tex">managing-ai-agents-handbook.tex</a> for the handbook and <a href="files/code/managing-ai-agents-three-page.tex">managing-ai-agents-three-page.tex</a> for the three-page edition. The charts on this page are drawn by <a href="files/code/make_figs.py">make_figs.py</a> (Python 3 with Matplotlib).</li>
+</ul>
+<h2 id="sources-and-further-reading">Sources and further reading</h2>
+<p><strong>Recent research and reports, each opened for this handbook</strong></p>
+<ul>
+<li>Cemri, Pan, Yang et al., <a href="https://arxiv.org/abs/2503.13657">Why Do Multi-Agent LLM Systems Fail?</a>, NeurIPS 2025</li>
+<li>Kim et al., <a href="https://arxiv.org/abs/2512.08296">Towards a Science of Scaling Agent Systems</a>, Google Research, Google DeepMind and MIT</li>
+<li>DataNorth, <a href="https://datanorth.ai/blog/ai-effort-levels-explained">AI effort levels explained</a>, 12 October 2026</li>
+<li>Anthropic, <a href="https://www.anthropic.com/engineering/code-execution-with-mcp">Code execution with MCP</a>, 4 November 2025</li>
+<li>Lumer et al., <a href="https://arxiv.org/abs/2601.06007">Don’t Break the Cache</a>, January 2026</li>
+<li>The New Stack, <a href="https://thenewstack.io/claude-code-auto-mode/">Auto Mode will soon be the default in Claude Code</a>, 7 August 2026</li>
+<li>Pappu et al., <a href="https://arxiv.org/abs/2602.01011">Multi-Agent Teams Hold Experts Back</a>, version 4, May 2026</li>
+<li>METR, <a href="https://metr.org/blog/2026-01-29-time-horizon-1-1/">Time Horizon 1.1</a>, 29 January 2026</li>
+<li>Anthropic, <a href="https://www.anthropic.com/research/measuring-agent-autonomy">Measuring AI agent autonomy in practice</a>, 18 February 2026</li>
+<li>Mollick, <a href="https://www.oneusefulthing.org/p/management-as-ai-superpower">Management as AI superpower</a>, 27 January 2026</li>
+<li>Telang, Hydari and Iqbal, <a href="https://hbr.org/2026/03/to-scale-ai-agents-successfully-think-of-them-like-team-members">To Scale AI Agents Successfully, Think of Them Like Team Members</a>, Harvard Business Review, 23 March 2026</li>
+<li>Anthropic, <a href="https://www.anthropic.com/engineering/multi-agent-research-system">How we built our multi-agent research system</a>, 13 June 2025</li>
+<li>Lopopolo, <a href="https://openai.com/index/harness-engineering/">Harness engineering</a>, OpenAI, 11 February 2026</li>
+<li>Weinberger and Hozez, <a href="https://arxiv.org/abs/2608.01347">Prompt-Induced Waste in Coding Agents</a>, September 2026</li>
+<li>Yuan et al., <a href="https://arxiv.org/abs/2609.19759">Rethinking Multi-Agent Collaboration: When More Is Less</a>, September 2026</li>
+<li>Rajasekaran, <a href="https://www.anthropic.com/engineering/harness-design-long-running-apps">Harness design for long-running application development</a>, Anthropic, 24 March 2026</li>
+<li>Young, <a href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents">Effective harnesses for long-running agents</a>, Anthropic, 26 November 2025</li>
+<li><a href="https://arxiv.org/abs/2511.05722">OckBench: Measuring the Efficiency of LLM Reasoning</a></li>
+<li>Anthropic, <a href="https://platform.claude.com/docs/en/build-with-claude/effort">Effort</a>, Claude Platform documentation</li>
+<li>Moslem and Kelleher, <a href="https://arxiv.org/abs/2603.04445">Dynamic Model Routing and Cascading for Efficient LLM Inference: A Survey</a>, TMLR, August 2026</li>
+<li>Anthropic, <a href="https://claude.com/resources/articles/the-advisor-strategy">The advisor strategy</a>, 9 April 2026</li>
+<li>Bai et al., <a href="https://arxiv.org/abs/2604.22750">How Do AI Agents Spend Your Money?</a>, April 2026</li>
+<li>Agent Skills, <a href="https://agentskills.io/specification">Specification</a></li>
+<li>The Linux Foundation, <a href="https://www.linuxfoundation.org/press/a2a-protocol-surpasses-150-organizations-lands-in-major-cloud-platforms-and-sees-enterprise-production-use-in-first-year">A2A Protocol Surpasses 150 Organizations</a>, 9 April 2026</li>
+<li>Axios, <a href="https://axios.com/2026/08/17/a2a-agentic-ai-foundation-open-ai-standards">Google-backed agentic A2A protocol gets a new home</a>, 17 August 2026</li>
+<li>Bouchard, <a href="https://www.louisbouchard.ai/context-engineering-2026/">Context Engineering in 2026: Why We Stopped Compacting Our Agent’s Context</a>, 18 August 2026</li>
+<li>Anthropic, <a href="https://www.anthropic.com/engineering/claude-code-auto-mode">Claude Code auto mode</a>, 25 March 2026</li>
+<li>Tomašev, Franklin and Osindero, <a href="https://arxiv.org/abs/2602.11865">Intelligent AI Delegation</a>, Google DeepMind, 12 February 2026</li>
+<li>Wynn, Satija and Hadfield, <a href="https://arxiv.org/abs/2509.05396">Talk Isn’t Always Cheap: Understanding Failure Modes in Multi-Agent Debate</a>, 2025</li>
+<li>Bertalanič and Fortuna, <a href="https://www.caisconf.org/program/2026/papers/decomposing-sycophancy-fragility-consensus-collapse-and-cost-in-homogeneous-mult/">The Cost of Consensus</a>, ACM CAIS 2026</li>
+<li>Carlini, <a href="https://www.anthropic.com/engineering/building-c-compiler">Building a C compiler with a team of parallel Claudes</a>, Anthropic, 5 February 2026</li>
+<li>Lin, <a href="https://cursor.com/blog/scaling-agents">Scaling long-running autonomous coding</a>, Cursor, 14 January 2026</li>
+<li>METR, <a href="https://metr.org/blog/2026-05-19-frontier-risk-report/">Frontier Risk Report (February to March 2026)</a>, 19 May 2026</li>
+<li>Sinha, Arun, Goel, Staab and Geiping, <a href="https://arxiv.org/abs/2509.09677">The Illusion of Diminishing Returns: Measuring Long Horizon Execution in LLMs</a>, ICLR 2026</li>
+<li>Willison, <a href="https://simonwillison.net/2026/Jan/19/scaling-long-running-autonomous-coding/">Scaling long-running autonomous coding</a>, 19 January 2026</li>
+<li>Johnston, Holtz, Richmond, Ong, Tambe and Chatterji, <a href="https://arxiv.org/abs/2606.26959">The Shift to Agentic AI: Evidence from Codex</a>, June 2026</li>
+<li>Zhang, Peng, Najt, Scholl and Martin, <a href="https://claude.dev/blog/safely-scaling-multi-agent-teams-with-fable-5-2/">Safely scaling multi-agent teams with Claude Fable 5.2</a>, 9 November 2026</li>
+<li>Zhou, Roy, Gupta, Weitekamp and MacLellan, <a href="https://arxiv.org/abs/2510.05307">When Should Users Check? Modeling Confirmation Frequency in Multi-Step Agentic AI Tasks</a>, CHI 2026</li>
+<li>Krivkovich, Weddle, Price and Sohoni, <a href="https://www.mckinsey.com/capabilities/people-and-organization/our-insights/ai-is-changing-work-now-it-has-to-change-the-organization">AI is changing work. Now it has to change the organization</a>, McKinsey, 5 October 2026</li>
+<li>MIT Sloan Management Review and BCG, <a href="https://www.prnewswire.com/news-releases/agentic-ai-blurs-line-between-tool-and-teammate-302617811.html">The Emerging Agentic Enterprise</a>, 18 November 2025 (figures from the press release)</li>
+<li>Masters et al., <a href="https://arxiv.org/abs/2510.02557">Orchestrating Human-AI Teams: The Manager Agent as a Unifying Research Challenge</a>, DAI 2025</li>
+<li>Staufer, Feng, Wei et al., <a href="https://aiagentindex.mit.edu/">The 2025 AI Agent Index</a>, February 2026</li>
+<li>Karpathy, <a href="https://github.com/karpathy/autoresearch">autoresearch</a>, March 2026; run results as summarized by <a href="https://www.philschmid.de/autoresearch">Schmid</a>, 10 March 2026</li>
+<li>SkyPilot, <a href="https://blog.skypilot.co/scaling-autoresearch/">Scaling Karpathy’s autoresearch</a>, March 2026</li>
+<li>Chen, Li, Mancuso, Frye and Chalamala, <a href="https://modal.com/blog/autoscaling-autoresearch">Autoscaling Autoresearch</a>, Modal, 14 April 2026</li>
+<li>Sakana AI with the Universities of Oxford and British Columbia, The AI Scientist, Nature, 25 March 2026 (doi:10.1038/s41586-026-10265-5)</li>
+<li>Lu, Lu, Lange, Foerster, Clune and Ha, <a href="https://arxiv.org/abs/2408.06292">The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery</a>, August 2024</li>
+<li>Wijk, Lin, Becker et al., <a href="https://arxiv.org/abs/2411.15114">RE-Bench</a>, METR, ICML 2025</li>
+<li>Zhao et al., <a href="https://arxiv.org/abs/2506.22419">The Automated LLM Speedrunning Benchmark</a>, Meta, NeurIPS 2025</li>
+<li>Llama Team, <a href="https://arxiv.org/abs/2407.21783">The Llama 3 Herd of Models</a>, Meta, 2024</li>
+<li>Kwon et al., <a href="https://arxiv.org/abs/2309.06180">Efficient Memory Management for Large Language Model Serving with PagedAttention</a>, SOSP 2023</li>
+<li>Ramesh, Devic, Garg et al., <a href="https://benchmarks.bespokelabs.ai/autoresearchexam/">AutoResearchExam</a>, Bespoke Labs, 9 September 2026</li>
+<li>Hambardzumyan, Baldwin, Toledo et al., <a href="https://arxiv.org/abs/2603.26499">AIRA²: Overcoming Bottlenecks in AI Research Agents</a>, March 2026</li>
+<li>METR, <a href="https://metr.substack.com/p/2025-06-05-recent-reward-hacking">Recent Frontier Models Are Reward Hacking</a>, 5 June 2025</li>
+<li>Toledo, Hambardzumyan, Josifoski et al., <a href="https://arxiv.org/abs/2507.02554">AI Research Agents for Machine Learning</a>, July 2025</li>
+<li>Askarbekuly, Al Mdfaa, Helaly, Ferrer and Mazzara, <a href="https://arxiv.org/abs/2607.18064">Autoresearch with Coding Agents: Generalizers and Metric-Maximizers</a>, August 2026</li>
+<li>Prolific AI Research, <a href="https://labs.prolific.com/posts/autoresearch-hitl">autoresearch with human checkpoints</a>, 21 May 2026</li>
+<li>Miller and Su, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3414217">Artemisinin: Discovery from the Chinese Herbal Garden</a>, Cell, 2011</li>
+<li>Lasker Foundation, <a href="https://laskerfoundation.org/winners/artemisinin-therapy-for-malaria/">Artemisinin therapy for malaria</a>, 2011</li>
+</ul>
+<p><strong>Tools and historical episodes, checked online</strong></p>
+<ul>
+<li>Carnegie Hall, <a href="https://www.carnegiehall.org/Explore/Articles/2020/08/11/Here-Lies-a-Man">Here Lies a Man Who Knew How to Enlist in His Service Better Men Than Himself</a>, 11 August 2020</li>
+<li>Chernow, Titan (1998), passage <a href="https://www.econlib.org/archives/2013/01/great_moments_i_6.html">quoted at Econlib</a></li>
+<li>DigitalOcean, <a href="https://www.digitalocean.com/resources/articles/what-is-notebooklm">What Is NotebookLM? Features and How to Use It in 2026</a></li>
+<li>Manusights, <a href="https://manusights.com/blog/best-pre-submission-manuscript-review-service">Best Pre-Submission Manuscript Review Services in 2026</a> and <a href="https://manusights.com/blog/manusights-vs-paperreview-ai">Manusights vs PaperReview AI</a></li>
+<li>NewsCatcher, <a href="https://www.newscatcherapi.com/blog-posts/best-deep-research-tools">Best Deep Research Tools in 2026</a></li>
+<li>The AI Rankings, <a href="https://theairankings.com/best-ai-for-research/">Best AI for Research in 2026</a></li>
+<li>SuperFresh AI, <a href="https://superfreshai.pages.dev/guides/ai-literature-review-guide-for-researchers/">AI Literature Review Guide for Researchers</a></li>
+<li>OpenAI, <a href="https://openai.com/index/introducing-prism/">Introducing Prism</a>, 27 January 2026</li>
+</ul>
+<p><strong>Historical sources, cited from the agent’s training knowledge</strong></p>
+<ul>
+<li>Sima Qian, Records of the Grand Historian (Shiji), c. 91 BC</li>
+<li>Nelson, memorandum to the fleet, HMS Victory, 9 October 1805</li>
+<li>Chandler, The Campaigns of Napoleon, 1966</li>
+<li>Bezos, letter to Amazon shareholders for 2015</li>
+<li>Reagan, remarks on signing the INF Treaty, 8 December 1987</li>
+</ul>
+<p><strong>Classic management works, cited from the agent’s training knowledge</strong></p>
+<ul>
+<li>Graicunas, “Relationship in Organization”, 1933</li>
+<li>Coase, “The Nature of the Firm”, 1937</li>
+<li>Barnard, The Functions of the Executive, 1938</li>
+<li>Drucker, The Practice of Management, 1954</li>
+<li>Lawrence and Lorsch, Organization and Environment, 1967</li>
+<li>Hersey and Blanchard, “Life Cycle Theory of Leadership”, 1969</li>
+<li>Simon, “Designing Organizations for an Information-Rich World”, 1971</li>
+<li>Janis, Victims of Groupthink, 1972</li>
+<li>Brooks, The Mythical Man-Month, 1975</li>
+<li>Delbecq, Van de Ven and Gustafson, Group Techniques for Program Planning, 1975</li>
+<li>Kerr, “On the Folly of Rewarding A, While Hoping for B”, 1975</li>
+<li>Jensen and Meckling, “Theory of the Firm”, 1976</li>
+<li>Mintzberg, The Structuring of Organizations, 1979</li>
+<li>Stasser and Titus, “Pooling of Unshared Information in Group Decision Making”, 1985</li>
+<li>Holmström and Milgrom, “Multitask Principal–Agent Analyses”, 1991</li>
+</ul>
+    <div class="footer"><a href="../">More posts</a></div>
+  </div>
+</body>
+</html>

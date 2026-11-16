@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="626.4pt" height="216pt" viewBox="0 0 626.4 216" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-16T23:26:56.808413</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 216 
+L 626.4 216 
+L 626.4 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 161.511875 171.118672 
+L 598.795313 171.118672 
+L 598.795313 47.06 
+L 161.511875 47.06 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 161.511875 171.118672 
+L 161.511875 47.06 
+" clip-path="url(#p1bd4b54a38)" style="fill: none; stroke: #ebebeb; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="m9a3e20c19f" d="M 0 0 
+L 0 3.5 
+" style="stroke: #444444; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m9a3e20c19f" x="161.511875" y="171.118672" style="fill: #444444; stroke: #444444; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #444444" x="161.511875" y="186.476094" transform="rotate(-0 161.511875 186.476094)">0%</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 270.832734 171.118672 
+L 270.832734 47.06 
+" clip-path="url(#p1bd4b54a38)" style="fill: none; stroke: #ebebeb; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m9a3e20c19f" x="270.832734" y="171.118672" style="fill: #444444; stroke: #444444; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #444444" x="270.832734" y="186.476094" transform="rotate(-0 270.832734 186.476094)">25%</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 380.153594 171.118672 
+L 380.153594 47.06 
+" clip-path="url(#p1bd4b54a38)" style="fill: none; stroke: #ebebeb; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m9a3e20c19f" x="380.153594" y="171.118672" style="fill: #444444; stroke: #444444; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #444444" x="380.153594" y="186.476094" transform="rotate(-0 380.153594 186.476094)">50%</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 489.474453 171.118672 
+L 489.474453 47.06 
+" clip-path="url(#p1bd4b54a38)" style="fill: none; stroke: #ebebeb; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m9a3e20c19f" x="489.474453" y="171.118672" style="fill: #444444; stroke: #444444; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #444444" x="489.474453" y="186.476094" transform="rotate(-0 489.474453 186.476094)">75%</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 598.795313 171.118672 
+L 598.795313 47.06 
+" clip-path="url(#p1bd4b54a38)" style="fill: none; stroke: #ebebeb; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m9a3e20c19f" x="598.795313" y="171.118672" style="fill: #444444; stroke: #444444; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #444444" x="598.795313" y="186.476094" transform="rotate(-0 598.795313 186.476094)">100%</text>
+     </g>
+    </g>
+    <g id="text_6">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="380.153594" y="201.476953" transform="rotate(-0 380.153594 201.476953)">Share of dangerous commands caught</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_11"/>
+     <g id="text_7">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #444444" transform="translate(65.365 62.275041)">Human approvers,</text>
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #444444" transform="translate(43.785313 74.277775)">all permission prompts</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_12"/>
+     <g id="text_8">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #444444" transform="translate(65.365 107.387285)">Human approvers,</text>
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #444444" transform="translate(11.9025 119.39002)">after 50 prompts in a session</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_13"/>
+     <g id="text_9">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #444444" transform="translate(51.98375 152.49992)">Automated classifier,</text>
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #444444" transform="translate(37.280625 164.502654)">Claude Code auto mode</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 161.511875 75.255153 
+L 220.982423 75.255153 
+L 220.982423 52.699031 
+L 161.511875 52.699031 
+z
+" clip-path="url(#p1bd4b54a38)" style="fill: #9a9a9a"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 161.511875 120.367397 
+L 183.376047 120.367397 
+L 183.376047 97.811275 
+L 161.511875 97.811275 
+z
+" clip-path="url(#p1bd4b54a38)" style="fill: #1772d0"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 161.511875 165.479641 
+L 550.694134 165.479641 
+L 550.694134 142.923519 
+L 161.511875 142.923519 
+z
+" clip-path="url(#p1bd4b54a38)" style="fill: #9a9a9a"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 161.511875 171.118672 
+L 598.795313 171.118672 
+" style="fill: none; stroke: #888888; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #222222" x="227.541674" y="66.704631" transform="rotate(-0 227.541674 66.704631)">13.6%</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1772d0" x="189.935298" y="111.816875" transform="rotate(-0 189.935298 111.816875)">5%</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #222222" x="557.253386" y="156.929119" transform="rotate(-0 557.253386 156.929119)">89%</text>
+   </g>
+  </g>
+  <g id="text_13">
+   <text style="font-weight: 700; font-size: 12.5px; font-family: 'DejaVu Sans'; text-anchor: start" x="7.5168" y="13.818047" transform="rotate(-0 7.5168 13.818047)">After 50 prompts, human approvers caught 5% of dangerous commands</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p1bd4b54a38">
+   <rect x="161.511875" y="47.06" width="437.283437" height="124.058672"/>
+  </clipPath>
+ </defs>
+</svg>
