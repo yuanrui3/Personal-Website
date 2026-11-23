@@ -132,3 +132,9 @@ mjx-container[display="true"] {
 .wrap b {
   font-size: inherit;
 }
+
+.wrap .article-sources,
+.wrap .article-sources a {
+  font-size: 14px;
+  line-height: 1.45;
+}
